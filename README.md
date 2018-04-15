@@ -1,7 +1,7 @@
 prember-meta
 ==============================================================================
 
-[Short description of the addon.]
+Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.
 
 Installation
 ------------------------------------------------------------------------------
@@ -13,36 +13,87 @@ ember install prember-meta
 
 Usage
 ------------------------------------------------------------------------------
+This addon requires a config be set with the basic info for your blog, including the `title`,
+`description`, and `url`. The `url` should end in a trailing slash.
 
-[Longer description of how to use the addon in apps.]
+```js
+// config/environment.js
+ENV['prember-meta'] = {
+    description: 'Ramblings about Ember.js, JavaScript, life, liberty, and the pursuit of happiness.',
+    title: 'Blog - Ship Shape',
+    url: 'https://shipshape.io/blog/'
+  };
+```
 
+The `title` will be used for both the `<title>` tag of your page, and for `og:title` and `twitter:title`. Similarly, the description will be used for `description`, `og:description`, and `twitter:description`. You probably are starting to see
+a pattern forming here :smiley:.
 
-Contributing
-------------------------------------------------------------------------------
+Once you have defined your base values, there are two mixins exposed for use in your app's blog index route, and each post's route.
 
-### Installation
+The `blog-meta` mixin only needs the values from the global config, so it will work even without the model hook,
+but I wanted to just show the setup I have with my model hook, where I load in all the posts.
 
-* `git clone <repository-url>`
-* `cd prember-meta`
-* `npm install`
+```js
+// routes/blog/index.js
+import Route from '@ember/routing/route';
+import RSVP from 'rsvp';
+import { inject as service } from '@ember/service';
+import BlogMetaMixin from 'prember-meta/mixins/blog-meta';
 
-### Linting
+export default Route.extend(BlogMetaMixin, {
+  markdownResolver: service(),
 
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
+  model() {
+    return this.markdownResolver.tree('blog').then((tree) => {
+      return new RSVP.Promise((resolve) => {
+        const sortedPosts = tree.files.sortBy('attributes.date').reverse();
+        resolve(sortedPosts);
+      });
+    });
+  }
+});
+```
 
-### Running tests
+The `post-meta` mixin, however, relies heavily on your model values. Therefore, if you do not have a model hook, and 
+your `afterModel` is passed an `undefined` model reference, an assertion will be thrown that you must have a model. 
+In this example, we are using [ember-cli-markdown-resolver](https://github.com/willviles/ember-cli-markdown-resolver)
+and it automatically will set the front matter values from your markdown as properties on your model, when you grab the file.
 
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
+The values in my `.md` files look something like this:
 
-### Running the dummy application
+```md
+---
+author: Robert Wagner
+authorId: rwwagner90
+categories: 
+  - ember
+  - ember.js
+  - ember inspector
+date: '2018-04-09'
+slug: ember-inspector-the-journey-so-far
+title: Ember Inspector - The Journey so Far
+---
+```
 
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
+You do not have to use the markdown resolver, but your model must return values of the same format, i.e. an author 
+name string, a categories array, a slug for the post, a title, etc.
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+```js
+// routes/blog/post.js
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
+import PostMetaMixin from 'prember-meta/mixins/post-meta';
+
+export default Route.extend(PostMetaMixin, {
+  markdownResolver: service(),
+
+  model({ path }) {
+    const withoutSlash = !path.endsWith('/') ? path : path.slice(0, -1);
+    return this.markdownResolver.file('blog', withoutSlash);
+  }
+});
+```
+
 
 License
 ------------------------------------------------------------------------------
