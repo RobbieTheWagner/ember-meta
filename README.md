@@ -30,7 +30,10 @@ This addon requires a config be set with the basic info for your blog, including
 // config/environment.js
 ENV['prember-meta'] = {
     description: 'Ramblings about Ember.js, JavaScript, life, liberty, and the pursuit of happiness.',
+    imgSrc: 'http://i.imgur.com/KVqNjgO.png',
+    siteName: 'Ship Shape',
     title: 'Blog - Ship Shape',
+    twitterUsername: '@shipshapecode',
     url: 'https://shipshape.io/blog/'
   };
 ```

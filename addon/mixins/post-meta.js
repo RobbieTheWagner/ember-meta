@@ -16,18 +16,34 @@ export default Mixin.create({
     assert(`The post-meta mixin requires values to be set in config['prember-meta'].`, premberMetaConfig !== undefined);
 
     const description = `${model.content.substring(0, 260)}...`;
-    const { author, categories, date, slug, title, type } = model.attributes;
+
+    // Use global config values, when local ones are not defined, by merging configs together with Object.assign
+    const mergedConfig = Object.assign({}, premberMetaConfig, model.attributes);
+    const {
+      author,
+      categories,
+      date,
+      imgSrc,
+      siteName,
+      slug,
+      title,
+      twitterUsername,
+      url
+    } = mergedConfig;
 
     return setProperties(this.get('headData'), {
-      title: `${title} - ${premberMetaConfig.title}`,
-      articleTitle: title,
       author,
       description,
       date,
+      imgSrc,
+      siteName,
+      twitterUsername,
+      articleTitle: title,
       keywords: categories.join(', '),
       tags: categories,
-      type: type || 'article',
-      url: `${premberMetaConfig.url}${slug}/`
+      title: `${title} - ${premberMetaConfig.title}`,
+      type: 'article',
+      url: `${url}${slug}/`
     });
   }
 });

@@ -14,11 +14,14 @@ export default Mixin.create({
 
     assert(`The blog-meta mixin requires values to be set in config['prember-meta'].`, premberMetaConfig !== undefined);
 
-    const {description, title, url} = premberMetaConfig;
+    const { description, imgSrc, siteName, title, twitterUsername, url } = premberMetaConfig;
 
     return setProperties(this.get('headData'), {
       description,
+      imgSrc,
+      siteName,
       title,
+      twitterUsername,
       url,
       type: 'website'
     });
