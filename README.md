@@ -25,7 +25,7 @@ Usage
 This addon requires a config be set with the basic info for your blog, including the `title`,
 `description`, and `url`. The `url` should end in a trailing slash.
 
-### Global Config
+## Global Config
 
 ```js
 // config/environment.js
@@ -61,12 +61,13 @@ export default Route.extend(BlogMetaMixin, {
 });
 ```
 
-### Individual Post / Local Config
+## Individual Post / Local Config
 The `post-meta` mixin, however, relies heavily on your model values. Therefore, if you do not have a model hook, and 
 your `afterModel` is passed an `undefined` model reference, an assertion will be thrown that you must have a model.
 
 
-#### Using with ember-cli-markdown-resolver
+### Using with ember-cli-markdown-resolver
+
 In this example, we are using [ember-cli-markdown-resolver](https://github.com/willviles/ember-cli-markdown-resolver)
 and it automatically will set the front matter values from your markdown as properties on your model, when you grab the file.
 
