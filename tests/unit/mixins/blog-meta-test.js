@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import BlogMetaMixin from 'prember-meta/mixins/blog-meta';
+import BlogMetaMixin from 'ember-meta/mixins/blog-meta';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | blog-meta', function() {

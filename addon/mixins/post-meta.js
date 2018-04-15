@@ -10,15 +10,15 @@ export default Mixin.create({
   afterModel(model) {
     this._super(...arguments);
 
-    const premberMetaConfig = config['prember-meta'];
+    const emberMetaConfig = config['ember-meta'];
 
     assert('The post-meta mixin requires a model to be defined.', model !== undefined);
-    assert(`The post-meta mixin requires values to be set in config['prember-meta'].`, premberMetaConfig !== undefined);
+    assert(`The post-meta mixin requires values to be set in config['ember-meta'].`, emberMetaConfig !== undefined);
 
     const description = `${model.content.substring(0, 260)}...`;
 
     // Use global config values, when local ones are not defined, by merging configs together with Object.assign
-    const mergedConfig = Object.assign({}, premberMetaConfig, model.attributes);
+    const mergedConfig = Object.assign({}, emberMetaConfig, model.attributes);
     const {
       author,
       categories,
@@ -41,7 +41,7 @@ export default Mixin.create({
       articleTitle: title,
       keywords: categories.join(', '),
       tags: categories,
-      title: `${title} - ${premberMetaConfig.title}`,
+      title: `${title} - ${emberMetaConfig.title}`,
       type: 'article',
       url: `${url}${slug}/`
     });

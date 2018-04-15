@@ -1,5 +1,5 @@
 import EmberObject from '@ember/object';
-import PostMetaMixin from 'prember-meta/mixins/post-meta';
+import PostMetaMixin from 'ember-meta/mixins/post-meta';
 import { module, test } from 'qunit';
 
 module('Unit | Mixin | post-meta', function() {

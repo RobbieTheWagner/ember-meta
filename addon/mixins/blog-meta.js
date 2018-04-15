@@ -10,11 +10,11 @@ export default Mixin.create({
   afterModel() {
     this._super(...arguments);
 
-    const premberMetaConfig = config['prember-meta'];
+    const emberMetaConfig = config['ember-meta'];
 
-    assert(`The blog-meta mixin requires values to be set in config['prember-meta'].`, premberMetaConfig !== undefined);
+    assert(`The blog-meta mixin requires values to be set in config['ember-meta'].`, emberMetaConfig !== undefined);
 
-    const { description, imgSrc, siteName, title, twitterUsername, url } = premberMetaConfig;
+    const { description, imgSrc, siteName, title, twitterUsername, url } = emberMetaConfig;
 
     return setProperties(this.get('headData'), {
       description,

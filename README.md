@@ -1,15 +1,15 @@
-prember-meta
+ember-meta
 ==============================================================================
 
 <a href="https://shipshape.io/"><img src="http://i.imgur.com/KVqNjgO.png" width="100" height="100"/></a>
 
-**[prember-meta is built and maintained by Ship Shape. Contact us for Ember.js consulting, development, and training for your project](https://shipshape.io/ember-consulting)**.
+**[ember-meta is built and maintained by Ship Shape. Contact us for Ember.js consulting, development, and training for your project](https://shipshape.io/ember-consulting)**.
 
-[![npm version](https://badge.fury.io/js/prember-meta.svg)](http://badge.fury.io/js/prember-meta)
-![Download count all time](https://img.shields.io/npm/dt/prember-meta.svg)
-[![npm](https://img.shields.io/npm/dm/prember-meta.svg)]()
-[![Ember Observer Score](http://emberobserver.com/badges/prember-meta.svg)](http://emberobserver.com/addons/prember-meta)
-[![Build Status](https://travis-ci.org/shipshapecode/prember-meta.svg)](https://travis-ci.org/shipshapecode/prember-meta)
+[![npm version](https://badge.fury.io/js/ember-meta.svg)](http://badge.fury.io/js/ember-meta)
+![Download count all time](https://img.shields.io/npm/dt/ember-meta.svg)
+[![npm](https://img.shields.io/npm/dm/ember-meta.svg)]()
+[![Ember Observer Score](http://emberobserver.com/badges/ember-meta.svg)](http://emberobserver.com/addons/ember-meta)
+[![Build Status](https://travis-ci.org/shipshapecode/ember-meta.svg)](https://travis-ci.org/shipshapecode/ember-meta)
 
 Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.
 
@@ -17,7 +17,7 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install prember-meta
+ember install ember-meta
 ```
 
 
@@ -28,7 +28,7 @@ This addon requires a config be set with the basic info for your blog, including
 
 ```js
 // config/environment.js
-ENV['prember-meta'] = {
+ENV['ember-meta'] = {
     description: 'Ramblings about Ember.js, JavaScript, life, liberty, and the pursuit of happiness.',
     imgSrc: 'http://i.imgur.com/KVqNjgO.png',
     siteName: 'Ship Shape',
@@ -51,7 +51,7 @@ but I wanted to just show the setup I have with my model hook, where I load in a
 import Route from '@ember/routing/route';
 import RSVP from 'rsvp';
 import { inject as service } from '@ember/service';
-import BlogMetaMixin from 'prember-meta/mixins/blog-meta';
+import BlogMetaMixin from 'ember-meta/mixins/blog-meta';
 
 export default Route.extend(BlogMetaMixin, {
   markdownResolver: service(),
@@ -95,7 +95,7 @@ name string, a categories array, a slug for the post, a title, etc.
 // routes/blog/post.js
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import PostMetaMixin from 'prember-meta/mixins/post-meta';
+import PostMetaMixin from 'ember-meta/mixins/post-meta';
 
 export default Route.extend(PostMetaMixin, {
   markdownResolver: service(),
