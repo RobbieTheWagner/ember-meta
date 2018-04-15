@@ -1,6 +1,6 @@
 {
   "name": "prember-meta",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
