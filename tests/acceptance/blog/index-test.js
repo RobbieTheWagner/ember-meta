@@ -11,6 +11,8 @@ module('Acceptance | blog/index', function(hooks) {
     assert.equal(currentURL(), '/blog');
     assert.equal(document.head.querySelector('link[rel="canonical"]').href,
       'https://myblog.io/', 'canonical link is correct');
+    assert.equal(document.head.querySelector('meta[name="referrer"]').content,
+      'unsafe-url', 'referrer is always unsafe-url for maximum links');
   });
 
   test('visiting /blog and checking article meta', async function(assert) {
@@ -18,13 +20,17 @@ module('Acceptance | blog/index', function(hooks) {
 
     assert.equal(currentURL(), '/blog');
     assert.notOk(document.head.querySelector('meta[property="article:published_time"]'),
-      'article meta should be hidden, since we are not on an article');
+      'article published_time should be hidden, since we are not on an article');
+    assert.notOk(document.head.querySelector('meta[property="article:tag"]'),
+      'article tags should be hidden, since we are not on an article');
   });
 
   test('visiting /blog and checking opengraph meta', async function(assert) {
     await visit('/blog');
 
     assert.equal(currentURL(), '/blog');
+    assert.equal(document.head.querySelector('meta[property="og:site_name"]').content,
+      'Test Site Name', 'og site_name is correct');
     assert.equal(document.head.querySelector('meta[property="og:title"]').content,
       'Blog - Test Site Name', 'og title is correct');
   });
