@@ -1,6 +1,8 @@
 prember-meta
 ==============================================================================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/shipshapecode/prember-meta.svg)](https://greenkeeper.io/)
+
 [Short description of the addon.]
 
 Installation
