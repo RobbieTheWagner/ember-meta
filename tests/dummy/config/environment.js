@@ -23,6 +23,15 @@ module.exports = function(environment) {
     }
   };
 
+  ENV['ember-meta'] = {
+    description: 'Test description',
+    imgSrc: 'http://i.imgur.com/KVqNjgO.png',
+    siteName: 'Test Site Name',
+    title: 'Blog - Test Site Name',
+    twitterUsername: '@testtwitter',
+    url: 'https://myblog.io/'
+  };
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;

@@ -124,7 +124,7 @@ export default Route.extend(PostMetaMixin, {
         authorId: 'rwwagner90',
         categories: ['ember', 'ember.js', 'ember inspector'],
         date: '2018-04-09',
-        slug: 'ember-inspector-the-journey-so-far'
+        slug: 'ember-inspector-the-journey-so-far',
         title: 'Ember Inspector - The Journey so Far'
       }
     };
