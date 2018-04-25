@@ -10,8 +10,8 @@ export default Mixin.create({
 
   _attributeReferences: {
     author: 'author',
-    tags: 'canonical',
-    categories: 'categories',
+    canonical: 'canonical',
+    tags: 'categories',
     keywords(model) {
       if (model.categories) {
         return model.categories.join(', ');
