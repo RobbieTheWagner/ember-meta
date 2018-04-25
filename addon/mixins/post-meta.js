@@ -10,8 +10,13 @@ export default Mixin.create({
 
   _attributeReferences: {
     author: 'author',
-    canonical: 'canonical',
+    tags: 'canonical',
     categories: 'categories',
+    keywords(model) {
+      if (model.categories) {
+        return model.categories.join(', ');
+      }
+    },
     date: 'date',
     imgSrc: 'imgSrc',
     siteName: 'siteName',
@@ -57,7 +62,8 @@ export default Mixin.create({
     const {
       author,
       canonical,
-      categories,
+      tags,
+      keywords,
       date,
       description,
       imgSrc,
@@ -76,8 +82,8 @@ export default Mixin.create({
       siteName,
       twitterUsername,
       articleTitle: title,
-      keywords: categories.join(', '),
-      tags: categories,
+      keywords,
+      tags,
       title: `${title} - ${emberMetaConfig.title}`,
       type: 'article',
       url,
