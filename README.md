@@ -22,8 +22,9 @@ ember install ember-meta
 
 Usage
 ------------------------------------------------------------------------------
-This addon requires a config be set with the basic info for your blog, including the `title`,
-`description`, and `url`. The `url` should end in a trailing slash.
+This addon supports a config be set with the basic info for your blog, including the `title`,
+`description`, and `url`. The `url` should end in a trailing slash. These values will be used as defaults, and 
+you can override them by returning different values in your model.
 
 ## Global Config
 
@@ -47,24 +48,14 @@ The global config will be merged with the local config, when you are on a specif
 sane defaults, while also retaining the flexibility to override each value on a specific post, by defining it on the
 `model`.
 
-Once you have defined your base values, there are two mixins exposed for use in your app's blog index route, and each post's route.
+All of the values, used to populate the meta, are computed properties, on the `head-data` service. This service is 
+automatically injected into all routes, and a default head.hbs is provided for you. This should allow a "zero config" 
+setup, if your app adheres to the same data formats as we expect.
 
-The `blog-meta` mixin only needs the values from the global config, so it will work even without the model hook. You can
-simply pull in the mixin, and mix it into your index blog route.
+## Standard Local Config
 
-```js
-// routes/blog/index.js
-import Route from '@ember/routing/route';
-import BlogMetaMixin from 'ember-meta/mixins/blog-meta';
-
-export default Route.extend(BlogMetaMixin, {
-});
-```
-
-## Individual Post / Local Config
-The `post-meta` mixin, however, relies heavily on your model values. Therefore, if you do not have a model hook, and 
-your `afterModel` is passed an `undefined` model reference, an assertion will be thrown that you must have a model.
-
+The `head-data` service expects the data, for the computed properties, to be in the format provided to us by 
+ember-cli-markdown-resolver, but you do not need to use it or even use markdown at all, to use this addon.
 
 ### Using with ember-cli-markdown-resolver
 
@@ -91,9 +82,8 @@ title: Ember Inspector - The Journey so Far
 // routes/blog/post.js
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
-import PostMetaMixin from 'ember-meta/mixins/post-meta';
 
-export default Route.extend(PostMetaMixin, {
+export default Route.extend({
   markdownResolver: service(),
 
   model({ path }) {
@@ -113,9 +103,8 @@ same blog post from the markdown example, except using a POJO as the model, is b
 ```js
 // routes/blog/post.js
 import Route from '@ember/routing/route';
-import PostMetaMixin from 'ember-meta/mixins/post-meta';
 
-export default Route.extend(PostMetaMixin, {
+export default Route.extend({
   model() {
     return {
       content: '<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>',
@@ -132,6 +121,17 @@ export default Route.extend(PostMetaMixin, {
 });
 ```
 
+## Advanced Local Config
+
+### Overriding Service Computed Properties
+
+Since all of this is powered by computed properties, in the `head-data` service. You can create your own head-data service, and 
+extend the one we provide to override the computeds for various meta to do whatever you want.
+
+### Defining Your Own head.hbs
+
+A default `head.hbs` is automatically available to your app, but we also provide a blueprint, if you would like to manage the 
+content yourself. This allows you to either define your own or delete it altogether and use the one we ship with this addon.
 
 License
 ------------------------------------------------------------------------------
