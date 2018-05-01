@@ -16,6 +16,12 @@ export default Service.extend({
   }),
 
   /**
+   * Used for og:title, twitter:title as the title to show in the unfurled links
+   */
+  articleTitle: computed('routeName', function() {
+    return this.get('currentRouteModel.attributes.articleTitle');
+  }),
+  /**
    * Used for twitter 'written by' meta.
    */
   author: computed('routeName', function() {

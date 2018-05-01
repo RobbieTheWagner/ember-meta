@@ -29,8 +29,8 @@
   <meta property="og:site_name" content="{{model.siteName}}">
 {{/if}}
 
-{{#if model.title}}
-  <meta property="og:title" content={{model.title}}>
+{{#if (or model.articleTitle model.title)}}
+  <meta property="og:title" content={{if model.articleTitle model.articleTitle model.title}}>
 {{/if}}
 
 {{#if model.url}}
@@ -65,8 +65,8 @@
   <meta name="twitter:image:src" content="{{model.imgSrc}}">
 {{/if}}
 
-{{#if model.title}}
-  <meta name="twitter:title" content={{model.title}}>
+{{#if (or model.articleTitle model.title)}}
+  <meta name="twitter:title" content={{if model.articleTitle model.articleTitle model.title}}>
 {{/if}}
 
 {{#if model.url}}
