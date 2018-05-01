@@ -33,7 +33,7 @@ export default Service.extend({
    */
   description: computed('routeName', function() {
     let description = this.getWithDefault('currentRouteModel.attributes.description', emberMetaConfig.description);
-    const content = this.get('currentRouteModel.attributes.content');
+    const content = this.get('currentRouteModel.content');
     if (content) {
       description = `${content.substring(0, 260)}...`;
     }
