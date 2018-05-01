@@ -128,6 +128,18 @@ export default Route.extend({
 Since all of this is powered by computed properties, in the `head-data` service. You can create your own head-data service, and 
 extend the one we provide to override the computeds for various meta to do whatever you want.
 
+```js
+// services/head-data.js
+import HeadDataService from 'ember-meta/services/head-data';
+import { computed } from '@ember/object';
+
+export default HeadDataService.extend({
+  description: computed('foo', function() {
+    return this.get('foo.description');
+  })
+});
+```
+
 ### Defining Your Own head.hbs
 
 A default `head.hbs` is automatically available to your app, but we also provide a blueprint, if you would like to manage the 
