@@ -1,6 +1,6 @@
 {
   "name": "ember-meta",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.",
   "keywords": [
     "ember-addon"
