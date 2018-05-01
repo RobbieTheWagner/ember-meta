@@ -1,7 +1,6 @@
 import Route from '@ember/routing/route';
-import PostMetaMixin from 'ember-meta/mixins/post-meta';
 
-export default Route.extend(PostMetaMixin, {
+export default Route.extend({
   model() {
     return {
       content: '<h1>Overridden post content</h1> <p>This is a post body!</p>',
@@ -11,7 +10,8 @@ export default Route.extend(PostMetaMixin, {
         categories: ['ember', 'ember.js'],
         date: '2018-04-09',
         slug: 'test-post-slug',
-        title: 'Overridden Title'
+        title: 'Overridden Title',
+        type: 'article'
       }
     };
   }
