@@ -38,18 +38,25 @@ export default Service.extend({
    * This is the main content of your page, shown as the conten in the unfurled links
    */
   description: computed('routeName', function() {
-    let description = this.getWithDefault('currentRouteModel.attributes.description', emberMetaConfig.description);
     const content = this.get('currentRouteModel.content');
-    if (content) {
-      description = `${content.substring(0, 260)}...`;
+
+    if (content && content.substring) {
+      return `${content.substring(0, 260)}...`;
     }
-    return description;
+
+    return this.getWithDefault('currentRouteModel.attributes.description', emberMetaConfig.description);
+  }),
+  /**
+   * Not used directly - used by keywords & tags
+   */
+  categories: computed('routeName', function() {
+    return this.get('currentRouteModel.attributes.categories');
   }),
   /**
    * Used for twitter meta to display 'filed under'
    */
   keywords: computed('routeName', function() {
-    const categories = this.get('currentRouteModel.attributes.categories');
+    const categories = this.get('categories');
     return categories ? categories.join(', ') : null;
   }),
   /**
@@ -68,7 +75,7 @@ export default Service.extend({
    * Used for article:tag
    */
   tags: computed('routeName', function() {
-    return this.get('currentRouteModel.attributes.categories');
+    return this.get('categories');
   }),
   /**
    * Used for <title>, og:title, twitter:title
@@ -98,5 +105,11 @@ export default Service.extend({
       url = `${url}${slug}/`;
     }
     return url;
+  }),
+  /**
+   * Used for <link rel="canonical">
+   */
+  canonical: computed('routeName', function() {
+    return this.get('currentRouteModel.attributes.canonical');
   })
 });
