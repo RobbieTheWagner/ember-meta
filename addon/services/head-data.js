@@ -105,5 +105,11 @@ export default Service.extend({
       url = `${url}${slug}/`;
     }
     return url;
+  }),
+  /**
+   * Used for <link rel="canonical">
+   */
+  canonical: computed('routeName', function() {
+    return this.get('currentRouteModel.attributes.canonical');
   })
 });
