@@ -47,10 +47,16 @@ export default Service.extend({
     return this.getWithDefault('currentRouteModel.attributes.description', emberMetaConfig.description);
   }),
   /**
+   * Not used directly - used by keywords & tags
+   */
+  categories: computed('routeName', function() {
+    return this.get('currentRouteModel.attributes.categories');
+  }),
+  /**
    * Used for twitter meta to display 'filed under'
    */
   keywords: computed('routeName', function() {
-    const categories = this.get('currentRouteModel.attributes.categories');
+    const categories = this.get('categories');
     return categories ? categories.join(', ') : null;
   }),
   /**
@@ -69,7 +75,7 @@ export default Service.extend({
    * Used for article:tag
    */
   tags: computed('routeName', function() {
-    return this.get('currentRouteModel.attributes.categories');
+    return this.get('categories');
   }),
   /**
    * Used for <title>, og:title, twitter:title
