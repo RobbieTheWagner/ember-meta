@@ -38,19 +38,13 @@ export default Service.extend({
    * This is the main content of your page, shown as the conten in the unfurled links
    */
   description: computed('routeName', function() {
-    const content = this.get('currentRouteModel.content');
+    const content = this.get('content');
 
     if (content && content.substring) {
       return `${content.substring(0, 260)}...`;
     }
 
-    return this.getWithDefault('currentRouteModel.attributes.description', emberMetaConfig.description);
-  }),
-  /**
-   * Internal - used by keywords & tags
-   */
-  categories: computed('routeName', function() {
-    return this.get('currentRouteModel.categories');
+    return this.getWithDefault('currentRouteModel.description', emberMetaConfig.description);
   }),
   /**
    * Used for twitter meta to display 'filed under'
@@ -113,9 +107,21 @@ export default Service.extend({
     return this.get('currentRouteModel.attributes.canonical');
   }),
   /**
+   * Internal - used by keywords & tags
+   */
+  categories: computed('routeName', function() {
+    return this.get('currentRouteModel.categories');
+  }),
+  /**
+   * Internal - optionally used for description
+   */
+  content: computed('routeName', function() {
+    return this.get('currentRouteModel.content');
+  }),
+  /**
    * Internal - used for url
    */
   slug: computed('routeName', function() {
     return this.get('currentRouteModel.slug');
-  }),
+  })
 });
