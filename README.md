@@ -23,7 +23,7 @@ ember install ember-meta
 Usage
 ------------------------------------------------------------------------------
 This addon supports a config be set with the basic info for your blog, including the `title`,
-`description`, and `url`. The `url` should end in a trailing slash. These values will be used as defaults, and 
+`description`, and `url`. The `url` should end in a trailing slash. These values will be used as defaults, and
 you can override them by returning different values in your model.
 
 ## Global Config
@@ -48,14 +48,69 @@ The global config will be merged with the local config, when you are on a specif
 sane defaults, while also retaining the flexibility to override each value on a specific post, by defining it on the
 `model`.
 
-All of the values, used to populate the meta, are computed properties, on the `head-data` service. This service is 
-automatically injected into all routes, and a default head.hbs is provided for you. This should allow a "zero config" 
+All of the values, used to populate the meta, are computed properties, on the `head-data` service. This service is
+automatically injected into all routes, and a default head.hbs is provided for you. This should allow a "zero config"
 setup, if your app adheres to the same data formats as we expect.
 
 ## Standard Local Config
 
-The `head-data` service expects the data, for the computed properties, to be in the format provided to us by 
+The `head-data` service expects the data, for the computed properties, to be in the format provided to us by
 ember-cli-markdown-resolver, but you do not need to use it or even use markdown at all, to use this addon.
+
+### Using with a Vanilla Javascript Model Hook
+
+If you want to override the global config your `model()` hook must return an object with a certain format, i.e. an author
+name string, a categories array, a slug for the post, a title, content etc.
+
+Here is an example of a simple blog post using a POJO as the model:
+
+```js
+// routes/blog/post.js
+import Route from '@ember/routing/route';
+
+export default Route.extend({
+  model() {
+    return {
+      content: '<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>',
+      author: 'Robert Wagner',
+      authorId: 'rwwagner90',
+      categories: ['ember', 'ember.js', 'ember inspector'],
+      date: '2018-04-09',
+      slug: 'ember-inspector-the-journey-so-far',
+      title: 'Ember Inspector - The Journey so Far'  
+    };
+  }
+});
+```
+
+### Using with a Ember Data
+
+If you are using Ember data it should work as expected. Here is an example of the same example using ember-data.
+
+```js
+// models/blog.js
+import DS from 'ember-data';
+
+export default DS.Model.extend({
+  content: DS.attr(),
+  author: DS.attr(),
+  categories: DS.attr(),
+  date: DS.attr(),
+  slug: DS.attr(),
+  title: DS.attr()
+});
+```
+
+```js
+// routes/blog/post.js
+import Route from '@ember/routing/route';
+
+export default Route.extend({
+  model() {
+    return this.store.findRecord('blog', 1);
+  }
+});
+```
 
 ### Using with ember-cli-markdown-resolver
 
@@ -68,7 +123,7 @@ The values in my `.md` files look something like this:
 ---
 author: Robert Wagner
 authorId: rwwagner90
-categories: 
+categories:
   - ember
   - ember.js
   - ember inspector
@@ -93,39 +148,32 @@ export default Route.extend({
 });
 ```
 
-### Using with a Vanilla Model Hook
-
-You do not have to use the markdown resolver, but your model must return values of the same format, i.e. an author 
-name string, a categories array, a slug for the post, a title, etc. It must return the `content` of the post, as
-the `content` property of your model object, and all the other various things as `attributes`. An example of the
-same blog post from the markdown example, except using a POJO as the model, is below.
+In this case we need to override the `head-data` service because ember-cli-markdown-resolver puts all of the
+front-matter data under an `attributes` key.
 
 ```js
-// routes/blog/post.js
-import Route from '@ember/routing/route';
+// services/head-data.js
+import HeadData from 'ember-meta/services/head-data';
+import { computed } from '@ember/object';
+import { getOwner } from '@ember/application';
 
-export default Route.extend({
-  model() {
-    return {
-      content: '<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>',
-      attributes: {
-        author: 'Robert Wagner',
-        authorId: 'rwwagner90',
-        categories: ['ember', 'ember.js', 'ember inspector'],
-        date: '2018-04-09',
-        slug: 'ember-inspector-the-journey-so-far',
-        title: 'Ember Inspector - The Journey so Far'
-      }
-    };
-  }
+export default HeadData.extend({
+  currentRouteModel: computed('routeName', function() {
+    return getOwner(this).lookup(`route:${this.get('routeName')}`).get('currentModel.attributes');
+  }),
+  content: computed('routeName', function() {
+    // content is not on attributes when returned from ember-cli-markdown-resolver
+    return getOwner(this).lookup(`route:${this.get('routeName')}`).get('currentModel.content');
+  }),
 });
 ```
+
 
 ## Advanced Local Config
 
 ### Overriding Service Computed Properties
 
-Since all of this is powered by computed properties, in the `head-data` service. You can create your own head-data service, and 
+Since all of this is powered by computed properties, in the `head-data` service. You can create your own head-data service, and
 extend the one we provide to override the computeds for various meta to do whatever you want.
 
 ```js
@@ -142,7 +190,7 @@ export default HeadDataService.extend({
 
 ### Defining Your Own head.hbs
 
-A default `head.hbs` is automatically available to your app, but we also provide a blueprint, if you would like to manage the 
+A default `head.hbs` is automatically available to your app, but we also provide a blueprint, if you would like to manage the
 content yourself. This allows you to either define your own or delete it altogether and use the one we ship with this addon.
 
 License
