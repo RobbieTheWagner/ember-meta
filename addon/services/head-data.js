@@ -28,6 +28,24 @@ export default Service.extend({
     return this.get('currentRouteModel.author');
   }),
   /**
+   * Used for <link rel="canonical">
+   */
+  canonical: computed('routeName', function() {
+    return this.get('currentRouteModel.canonical');
+  }),
+  /**
+   * Internal - used by keywords & tags
+   */
+  categories: computed('routeName', function() {
+    return this.get('currentRouteModel.categories');
+  }),
+  /**
+   * Internal - optionally used for description
+   */
+  content: computed('routeName', function() {
+    return this.get('currentRouteModel.content');
+  }),
+  /**
    * Used for article:published_time
    */
   date: computed('routeName', function() {
@@ -35,7 +53,7 @@ export default Service.extend({
   }),
   /**
    * Used for <meta name="description">, og:description, twitter:description
-   * This is the main content of your page, shown as the conten in the unfurled links
+   * This is the main content of your page, shown as the content in the unfurled links
    */
   description: computed('routeName', function() {
     const content = this.get('content');
@@ -47,6 +65,12 @@ export default Service.extend({
     return this.getWithDefault('currentRouteModel.description', emberMetaConfig.description);
   }),
   /**
+   * Used for og:image twitter:image:src, the image to display in your unfurled links
+   */
+  imgSrc: computed('routeName', function() {
+    return this.getWithDefault('currentRouteModel.imgSrc', emberMetaConfig.imgSrc);
+  }),
+  /**
    * Used for twitter meta to display 'filed under'
    */
   keywords: computed('routeName', function() {
@@ -54,16 +78,16 @@ export default Service.extend({
     return categories ? categories.join(', ') : null;
   }),
   /**
-   * Used for og:image twitter:image:src, the image to display in your unfurled links
-   */
-  imgSrc: computed('routeName', function() {
-    return this.getWithDefault('currentRouteModel.imgSrc', emberMetaConfig.imgSrc);
-  }),
-  /**
    * Used for og:site_name
    */
   siteName: computed('routeName', function() {
     return this.getWithDefault('currentRouteModel.siteName', emberMetaConfig.siteName);
+  }),
+  /**
+   * Internal - used for url
+   */
+  slug: computed('routeName', function() {
+    return this.get('currentRouteModel.slug');
   }),
   /**
    * Used for article:tag
@@ -99,29 +123,5 @@ export default Service.extend({
       url = `${url}${slug}/`;
     }
     return url;
-  }),
-  /**
-   * Used for <link rel="canonical">
-   */
-  canonical: computed('routeName', function() {
-    return this.get('currentRouteModel.attributes.canonical');
-  }),
-  /**
-   * Internal - used by keywords & tags
-   */
-  categories: computed('routeName', function() {
-    return this.get('currentRouteModel.categories');
-  }),
-  /**
-   * Internal - optionally used for description
-   */
-  content: computed('routeName', function() {
-    return this.get('currentRouteModel.content');
-  }),
-  /**
-   * Internal - used for url
-   */
-  slug: computed('routeName', function() {
-    return this.get('currentRouteModel.slug');
   })
 });
