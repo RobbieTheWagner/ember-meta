@@ -52,14 +52,9 @@ All of the values, used to populate the meta, are computed properties, on the `h
 automatically injected into all routes, and a default head.hbs is provided for you. This should allow a "zero config"
 setup, if your app adheres to the same data formats as we expect.
 
-## Standard Local Config
-
-The `head-data` service expects the data, for the computed properties, to be in the format provided to us by
-ember-cli-markdown-resolver, but you do not need to use it or even use markdown at all, to use this addon.
-
 ### Using with a Vanilla Javascript Model Hook
 
-If you want to override the global config your `model()` hook must return an object with a certain format, i.e. an author
+If you want to override the global config, your `model()` hook must return an object with a certain format, i.e. an author
 name string, a categories array, a slug for the post, a title, content etc.
 
 Here is an example of a simple blog post using a POJO as the model:

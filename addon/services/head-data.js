@@ -54,15 +54,20 @@ export default Service.extend({
   /**
    * Used for <meta name="description">, og:description, twitter:description
    * This is the main content of your page, shown as the content in the unfurled links
+   * If you pass a description, it will be used, otherwise it will truncate your content,
+   * and finally it will use the description from the global config.
    */
   description: computed('routeName', function() {
+    const description = this.get('currentRouteModel.description');
     const content = this.get('content');
 
-    if (content && content.substring) {
+    if (description) {
+      return description;
+    } else if (content && content.substring) {
       return `${content.substring(0, 260)}...`;
     }
 
-    return this.getWithDefault('currentRouteModel.description', emberMetaConfig.description);
+    return emberMetaConfig.description;
   }),
   /**
    * Used for og:image twitter:image:src, the image to display in your unfurled links
