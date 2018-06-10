@@ -48,8 +48,8 @@ export default Service.extend({
   /**
    * Used for article:published_time
    */
-  date: computed('routeName', function() {
-    return this.get('currentRouteModel.date');
+  birthtime: computed('routeName', function() {
+    return this.get('currentRouteModel.birthtime');
   }),
   /**
    * Used for <meta name="description">, og:description, twitter:description
@@ -81,6 +81,12 @@ export default Service.extend({
   keywords: computed('routeName', function() {
     const categories = this.get('categories');
     return categories ? categories.join(', ') : null;
+  }),
+  /**
+   * Used for article:published_time
+   */
+  mtime: computed('routeName', function() {
+    return this.get('currentRouteModel.mtime');
   }),
   /**
    * Used for og:site_name

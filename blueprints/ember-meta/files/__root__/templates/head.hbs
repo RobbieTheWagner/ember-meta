@@ -15,8 +15,12 @@
 {{!-- End General --}}
 
 {{!-- Begin Article --}}
-{{#if model.date}}
-  <meta property="article:published_time" content="{{model.date}}">
+{{#if model.birthtime}}
+  <meta property="article:published_time" content="{{model.birthtime}}">
+{{/if}}
+
+{{#if model.mtime}}
+  <meta property="article:modified_time" content="{{model.mtime}}">
 {{/if}}
 
 {{#each model.tags as |tag|}}
