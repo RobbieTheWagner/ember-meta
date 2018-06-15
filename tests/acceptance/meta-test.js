@@ -46,7 +46,7 @@ module('Acceptance | meta', function(hooks) {
       'Overridden Meta', 'twitter title is correct');
   });
 
-  test('coming from anothe route', async function(assert) {
+  test('coming from another route', async function(assert) {
     await visit('/blog/post');
     await visit('/meta');
 
