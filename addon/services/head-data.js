@@ -11,8 +11,14 @@ export default Service.extend({
 
   routeName: alias('routing.currentRouteName'),
 
-  currentRouteModel: computed('routeName', function() {
-    return getOwner(this).lookup(`route:${this.get('routeName')}`).get('currentModel');
+  currentRoute: computed('routeName', function() {
+    return getOwner(this).lookup(`route:${this.get('routeName')}`);
+  }),
+
+  currentRouteModel: computed('currentRoute', function() {
+    let metaAlias = this.get('currentRoute.metaAlias');
+    let currentModel = this.get('currentRoute').get('currentModel');
+    return metaAlias && currentModel[metaAlias] ? currentModel[metaAlias] : currentModel;
   }),
 
   /**

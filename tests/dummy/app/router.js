@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('blog', function() {
     this.route('post');
   });
+  this.route('meta');
 });
 
 export default Router;
