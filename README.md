@@ -72,7 +72,7 @@ export default Route.extend({
       categories: ['ember', 'ember.js', 'ember inspector'],
       date: '2018-04-09',
       slug: 'ember-inspector-the-journey-so-far',
-      title: 'Ember Inspector - The Journey so Far'  
+      title: 'Ember Inspector - The Journey so Far'
     };
   }
 });
@@ -103,6 +103,26 @@ import Route from '@ember/routing/route';
 export default Route.extend({
   model() {
     return this.store.findRecord('blog', 1);
+  }
+});
+```
+
+### Dealing with multiple models returned from a route hook
+
+If you have multiple models returned from a model hook, specify which model will provide the relevant attributes to your meta tags.
+
+```js
+// routes/blog/post.js
+import Route from '@ember/routing/route';
+
+export default Route.extend({
+  metaAlias: 'product',
+
+  model() {
+    return RSVP.hash({
+      blog: this.store.findRecord('blog', 1),
+      product: this.store.findRecord('product', 1)
+    });
   }
 });
 ```
