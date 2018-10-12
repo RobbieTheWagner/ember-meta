@@ -32,7 +32,10 @@
 {{/if}}
 
 {{#if (or model.articleTitle model.title)}}
-  <meta property="og:title" content={{if model.articleTitle model.articleTitle model.title}}>
+  <meta
+    property="og:title"
+    content={{if model.articleTitle model.articleTitle model.title}}
+  >
 {{/if}}
 
 {{#if model.url}}
@@ -68,7 +71,10 @@
 {{/if}}
 
 {{#if (or model.articleTitle model.title)}}
-  <meta name="twitter:title" content={{if model.articleTitle model.articleTitle model.title}}>
+  <meta
+    name="twitter:title"
+    content={{if model.articleTitle model.articleTitle model.title}}
+  >
 {{/if}}
 
 {{#if model.url}}
