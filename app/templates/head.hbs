@@ -81,7 +81,7 @@
 
 {{#if model.author}}
   <meta name="twitter:label1" content="Written by">
-  <meta name="twitter:data1" content="{{model.author}}">
+  <meta name="twitter:data1" content="{{or model.author.name model.author}}">
 {{/if}}
 
 {{#if model.keywords}}
