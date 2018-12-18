@@ -95,3 +95,11 @@
   <meta name="twitter:data2" content={{model.keywords}}>
 {{/if}}
 {{!-- End Twitter --}}
+
+{{!-- Begin JSON-LD --}}
+{{#if model.jsonld}}
+  <script type="application/ld+json">
+    {{model.jsonld}}
+  </script>
+{{/if}}
+{{!-- End JSON-LD --}}

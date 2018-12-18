@@ -75,6 +75,15 @@ export default Service.extend({
   imgSrc: computed('routeName', function() {
     return this.getWithDefault('currentRouteModel.imgSrc', emberMetaConfig.imgSrc);
   }),
+  jsonld: computed('routeName', function() {
+    const jsonld = this.get('currentRouteModel.jsonld');
+
+    if (jsonld) {
+      return JSON.stringify(jsonld);
+    }
+
+    return false;
+  }),
   /**
    * Used for twitter meta to display 'filed under'
    */
