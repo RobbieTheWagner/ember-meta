@@ -11,45 +11,47 @@ export default Service.extend({
 
   routeName: alias('routing.currentRouteName'),
 
-  currentRouteModel: computed('routeName', function() {
-    return getOwner(this).lookup(`route:${this.get('routeName')}`).get('currentModel');
+  currentRouteMeta: computed('routeName', function() {
+    const currentRoute = getOwner(this).lookup(`route:${this.get('routeName')}`);
+
+    return currentRoute.metaInfo || currentRoute.currentModel;
   }),
 
   /**
    * Used for og:title, twitter:title as the title to show in the unfurled links
    */
   articleTitle: computed('routeName', function() {
-    return this.get('currentRouteModel.articleTitle');
+    return this.get('currentRouteMeta.articleTitle');
   }),
   /**
    * Used for twitter 'written by' meta.
    */
   author: computed('routeName', function() {
-    return this.get('currentRouteModel.author');
+    return this.get('currentRouteMeta.author');
   }),
   /**
    * Used for <link rel="canonical">
    */
   canonical: computed('routeName', function() {
-    return this.get('currentRouteModel.canonical');
+    return this.get('currentRouteMeta.canonical');
   }),
   /**
    * Internal - used by keywords & tags
    */
   categories: computed('routeName', function() {
-    return this.get('currentRouteModel.categories');
+    return this.get('currentRouteMeta.categories');
   }),
   /**
    * Internal - optionally used for description
    */
   content: computed('routeName', function() {
-    return this.get('currentRouteModel.content');
+    return this.get('currentRouteMeta.content');
   }),
   /**
    * Used for article:published_time
    */
   date: computed('routeName', function() {
-    return this.get('currentRouteModel.date');
+    return this.get('currentRouteMeta.date');
   }),
   /**
    * Used for <meta name="description">, og:description, twitter:description
@@ -58,7 +60,7 @@ export default Service.extend({
    * and finally it will use the description from the global config.
    */
   description: computed('routeName', function() {
-    const description = this.get('currentRouteModel.description');
+    const description = this.get('currentRouteMeta.description');
     const content = this.get('content');
 
     if (description) {
@@ -73,10 +75,10 @@ export default Service.extend({
    * Used for og:image twitter:image:src, the image to display in your unfurled links
    */
   imgSrc: computed('routeName', function() {
-    return this.getWithDefault('currentRouteModel.imgSrc', emberMetaConfig.imgSrc);
+    return this.getWithDefault('currentRouteMeta.imgSrc', emberMetaConfig.imgSrc);
   }),
   jsonld: computed('routeName', function() {
-    const jsonld = this.get('currentRouteModel.jsonld');
+    const jsonld = this.get('currentRouteMeta.jsonld');
 
     if (jsonld) {
       return JSON.stringify(jsonld);
@@ -95,13 +97,13 @@ export default Service.extend({
    * Used for og:site_name
    */
   siteName: computed('routeName', function() {
-    return this.getWithDefault('currentRouteModel.siteName', emberMetaConfig.siteName);
+    return this.getWithDefault('currentRouteMeta.siteName', emberMetaConfig.siteName);
   }),
   /**
    * Internal - used for url
    */
   slug: computed('routeName', function() {
-    return this.get('currentRouteModel.slug');
+    return this.get('currentRouteMeta.slug');
   }),
   /**
    * Used for article:tag
@@ -113,25 +115,25 @@ export default Service.extend({
    * Used for <title>, og:title, twitter:title
    */
   title: computed('routeName', function() {
-    return this.getWithDefault('currentRouteModel.title', emberMetaConfig.title);
+    return this.getWithDefault('currentRouteMeta.title', emberMetaConfig.title);
   }),
   /**
    * Used for twitter:site and twitter:creator
    */
   twitterUsername: computed('routeName', function() {
-    return this.getWithDefault('currentRouteModel.twitterUsername', emberMetaConfig.twitterUsername);
+    return this.getWithDefault('currentRouteMeta.twitterUsername', emberMetaConfig.twitterUsername);
   }),
   /**
    * Used for og:type, defaults to 'website'
    */
   type: computed('routeName', function() {
-    return this.getWithDefault('currentRouteModel.type', 'website');
+    return this.getWithDefault('currentRouteMeta.type', 'website');
   }),
   /**
    * Used for <link rel="canonical">, og:url, twitter:url
    */
   url: computed('routeName', function() {
-    let url = this.getWithDefault('currentRouteModel.url', emberMetaConfig.url);
+    let url = this.getWithDefault('currentRouteMeta.url', emberMetaConfig.url);
     const slug = this.get('slug');
     if (slug) {
       url = `${url}${slug}/`;

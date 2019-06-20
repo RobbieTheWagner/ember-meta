@@ -61,6 +61,32 @@ All of the values, used to populate the meta, are computed properties, on the `h
 automatically injected into all routes, and a default head.hbs is provided for you. This should allow a "zero config"
 setup, if your app adheres to the same data formats as we expect.
 
+## Local Config
+
+The preferred way of configuring ember-meta, is to set your values under the `metaInfo` property on your route.
+This ensures you do not have potential naming conflicts for your meta when using a model.
+
+```js
+// routes/blog/post.js
+import Route from '@ember/routing/route';
+
+export default Route.extend({
+  afterModel() {
+    this._super(...arguments);
+    
+    this.metaInfo = {
+      content: '<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>',
+      author: 'Robert Wagner',
+      authorId: 'rwwagner90',
+      categories: ['ember', 'ember.js', 'ember inspector'],
+      date: '2018-04-09',
+      slug: 'ember-inspector-the-journey-so-far',
+      title: 'Ember Inspector - The Journey so Far'  
+    };
+  }
+});
+```
+
 ### Using with a Vanilla Javascript Model Hook
 
 If you want to override the global config, your `model()` hook must return an object with a certain format, i.e. an author
