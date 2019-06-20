@@ -8,7 +8,8 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('blog', function() {
-    this.route('post');
+    this.route('post-meta-info');
+    this.route('post-model');
   });
 });
 
