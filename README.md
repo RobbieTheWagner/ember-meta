@@ -13,6 +13,15 @@ ember-meta
 
 Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.
 
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v2.18 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
+
+
 Installation
 ------------------------------------------------------------------------------
 
@@ -187,6 +196,11 @@ export default HeadDataService.extend({
 
 A default `head.hbs` is automatically available to your app, but we also provide a blueprint, if you would like to manage the
 content yourself. This allows you to either define your own or delete it altogether and use the one we ship with this addon.
+
+Contributing
+------------------------------------------------------------------------------
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
 License
 ------------------------------------------------------------------------------
