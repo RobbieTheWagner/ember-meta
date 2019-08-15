@@ -17,7 +17,7 @@ Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook
 Compatibility
 ------------------------------------------------------------------------------
 
-* Ember.js v2.18 or above
+* Ember.js v3.4 or above
 * Ember CLI v2.13 or above
 * Node.js v8 or above
 
