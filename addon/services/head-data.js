@@ -7,12 +7,12 @@ import config from 'ember-get-config';
 const emberMetaConfig = config['ember-meta'];
 
 export default Service.extend({
-  routing: service('-routing'),
+  router: service(),
 
-  routeName: alias('routing.currentRouteName'),
+  routeName: alias('router.currentRouteName'),
 
   currentRouteMeta: computed('routeName', function() {
-    const currentRoute = getOwner(this).lookup(`route:${this.get('routeName')}`);
+    const currentRoute = getOwner(this).lookup(`route:${this.routeName}`);
 
     return currentRoute.metaInfo || currentRoute.currentModel;
   }),
@@ -20,48 +20,36 @@ export default Service.extend({
   /**
    * Used for og:title, twitter:title as the title to show in the unfurled links
    */
-  articleTitle: computed('routeName', function() {
-    return this.get('currentRouteMeta.articleTitle');
-  }),
+  articleTitle: computed.reads('currentRouteMeta.articleTitle'),
   /**
    * Used for twitter 'written by' meta.
    */
-  author: computed('routeName', function() {
-    return this.get('currentRouteMeta.author');
-  }),
+  author: computed.reads('currentRouteMeta.author'),
   /**
    * Used for <link rel="canonical">
    */
-  canonical: computed('routeName', function() {
-    return this.get('currentRouteMeta.canonical');
-  }),
+  canonical: computed.reads('currentRouteMeta.canonical'),
   /**
    * Internal - used by keywords & tags
    */
-  categories: computed('routeName', function() {
-    return this.get('currentRouteMeta.categories');
-  }),
+  categories: computed.reads('currentRouteMeta.categories'),
   /**
    * Internal - optionally used for description
    */
-  content: computed('routeName', function() {
-    return this.get('currentRouteMeta.content');
-  }),
+  content: computed.reads('currentRouteMeta.content'),
   /**
    * Used for article:published_time
    */
-  date: computed('routeName', function() {
-    return this.get('currentRouteMeta.date');
-  }),
+  date: computed.reads('currentRouteMeta.date'),
   /**
    * Used for <meta name="description">, og:description, twitter:description
    * This is the main content of your page, shown as the content in the unfurled links
    * If you pass a description, it will be used, otherwise it will truncate your content,
    * and finally it will use the description from the global config.
    */
-  description: computed('routeName', function() {
-    const description = this.get('currentRouteMeta.description');
-    const content = this.get('content');
+  description: computed('content', 'currentRouteMeta.description', 'routeName', function() {
+    const description = this.currentRouteMeta?.description;
+    const content = this.content;
 
     if (description) {
       return description;
@@ -74,11 +62,11 @@ export default Service.extend({
   /**
    * Used for og:image twitter:image:src, the image to display in your unfurled links
    */
-  imgSrc: computed('routeName', function() {
-    return this.getWithDefault('currentRouteMeta.imgSrc', emberMetaConfig.imgSrc);
+  imgSrc: computed('currentRouteMeta.imgSrc', 'routeName', function() {
+    return this.currentRouteMeta?.imgSrc ?? emberMetaConfig.imgSrc;
   }),
-  jsonld: computed('routeName', function() {
-    const jsonld = this.get('currentRouteMeta.jsonld');
+  jsonld: computed('currentRouteMeta.jsonld', 'routeName', function() {
+    const jsonld = this.currentRouteMeta?.jsonld;
 
     if (jsonld) {
       return JSON.stringify(jsonld);
@@ -89,52 +77,48 @@ export default Service.extend({
   /**
    * Used for twitter meta to display 'filed under'
    */
-  keywords: computed('routeName', function() {
-    const categories = this.get('categories');
+  keywords: computed('categories', 'routeName', function() {
+    const categories = this.categories;
     return categories ? categories.join(', ') : null;
   }),
   /**
    * Used for og:site_name
    */
-  siteName: computed('routeName', function() {
-    return this.getWithDefault('currentRouteMeta.siteName', emberMetaConfig.siteName);
+  siteName: computed('currentRouteMeta.siteName', 'routeName', function() {
+    return this.currentRouteMeta?.siteName ?? emberMetaConfig.siteName;
   }),
   /**
    * Internal - used for url
    */
-  slug: computed('routeName', function() {
-    return this.get('currentRouteMeta.slug');
-  }),
+  slug: computed.reads('currentRouteMeta.slug'),
   /**
    * Used for article:tag
    */
-  tags: computed('routeName', function() {
-    return this.get('categories');
-  }),
+  tags: computed.reads('categories'),
   /**
    * Used for <title>, og:title, twitter:title
    */
-  title: computed('routeName', function() {
-    return this.getWithDefault('currentRouteMeta.title', emberMetaConfig.title);
+  title: computed('currentRouteMeta.title', 'routeName', function() {
+    return this.currentRouteMeta?.title ?? emberMetaConfig.title;
   }),
   /**
    * Used for twitter:site and twitter:creator
    */
-  twitterUsername: computed('routeName', function() {
-    return this.getWithDefault('currentRouteMeta.twitterUsername', emberMetaConfig.twitterUsername);
+  twitterUsername: computed('currentRouteMeta.twitterUsername', 'routeName', function() {
+    return this.currentRouteMeta?.twitterUsername ?? emberMetaConfig.twitterUsername;
   }),
   /**
    * Used for og:type, defaults to 'website'
    */
-  type: computed('routeName', function() {
-    return this.getWithDefault('currentRouteMeta.type', 'website');
+  type: computed('currentRouteMeta.type', 'routeName', function() {
+    return this.currentRouteMeta?.type ?? 'website';
   }),
   /**
    * Used for <link rel="canonical">, og:url, twitter:url
    */
-  url: computed('routeName', function() {
-    let url = this.getWithDefault('currentRouteMeta.url', emberMetaConfig.url);
-    const slug = this.get('slug');
+  url: computed('currentRouteMeta.url', 'routeName', 'slug', function() {
+    let url = this.currentRouteMeta?.url ?? emberMetaConfig.url;
+    const slug = this.slug;
     if (slug) {
       url = `${url}${slug}/`;
     }
