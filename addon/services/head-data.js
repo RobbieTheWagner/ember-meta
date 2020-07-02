@@ -4,10 +4,12 @@ import { alias } from '@ember/object/computed';
 import { getOwner } from '@ember/application';
 import config from 'ember-get-config';
 
-const emberMetaConfig = config['ember-meta'];
-
 export default Service.extend({
   router: service(),
+
+  config: computed(function() {
+    return config['ember-meta'];
+  }),
 
   routeName: alias('router.currentRouteName'),
 
@@ -47,7 +49,7 @@ export default Service.extend({
    * If you pass a description, it will be used, otherwise it will truncate your content,
    * and finally it will use the description from the global config.
    */
-  description: computed('content', 'currentRouteMeta.description', 'routeName', function() {
+  description: computed('content', 'currentRouteMeta.description', 'routeName', 'config.description', function() {
     const description = this.currentRouteMeta?.description;
     const content = this.content;
 
@@ -57,13 +59,13 @@ export default Service.extend({
       return `${content.substring(0, 260)}...`;
     }
 
-    return emberMetaConfig.description;
+    return this.config.description;
   }),
   /**
    * Used for og:image twitter:image:src, the image to display in your unfurled links
    */
-  imgSrc: computed('currentRouteMeta.imgSrc', 'routeName', function() {
-    return this.currentRouteMeta?.imgSrc ?? emberMetaConfig.imgSrc;
+  imgSrc: computed('currentRouteMeta.imgSrc', 'routeName', 'config.imgSrc', function() {
+    return this.currentRouteMeta?.imgSrc ?? this.config.imgSrc;
   }),
   jsonld: computed('currentRouteMeta.jsonld', 'routeName', function() {
     const jsonld = this.currentRouteMeta?.jsonld;
@@ -84,8 +86,8 @@ export default Service.extend({
   /**
    * Used for og:site_name
    */
-  siteName: computed('currentRouteMeta.siteName', 'routeName', function() {
-    return this.currentRouteMeta?.siteName ?? emberMetaConfig.siteName;
+  siteName: computed('currentRouteMeta.siteName', 'routeName', 'config.siteName', function() {
+    return this.currentRouteMeta?.siteName ?? this.config.siteName;
   }),
   /**
    * Internal - used for url
@@ -98,14 +100,14 @@ export default Service.extend({
   /**
    * Used for <title>, og:title, twitter:title
    */
-  title: computed('currentRouteMeta.title', 'routeName', function() {
-    return this.currentRouteMeta?.title ?? emberMetaConfig.title;
+  title: computed('currentRouteMeta.title', 'routeName', 'config.title', function() {
+    return this.currentRouteMeta?.title ?? this.config.title;
   }),
   /**
    * Used for twitter:site and twitter:creator
    */
-  twitterUsername: computed('currentRouteMeta.twitterUsername', 'routeName', function() {
-    return this.currentRouteMeta?.twitterUsername ?? emberMetaConfig.twitterUsername;
+  twitterUsername: computed('currentRouteMeta.twitterUsername', 'routeName', 'config.twitterUsername', function() {
+    return this.currentRouteMeta?.twitterUsername ?? this.config.twitterUsername;
   }),
   /**
    * Used for og:type, defaults to 'website'
@@ -116,8 +118,8 @@ export default Service.extend({
   /**
    * Used for <link rel="canonical">, og:url, twitter:url
    */
-  url: computed('currentRouteMeta.url', 'routeName', 'slug', function() {
-    let url = this.currentRouteMeta?.url ?? emberMetaConfig.url;
+  url: computed('currentRouteMeta.url', 'routeName', 'slug', 'config.url', function() {
+    let url = this.currentRouteMeta?.url ?? this.config.url;
     const slug = this.slug;
     if (slug) {
       url = `${url}${slug}/`;
