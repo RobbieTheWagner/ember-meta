@@ -1,55 +1,58 @@
 import Service, { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import { alias, reads } from '@ember/object/computed';
 import { getOwner } from '@ember/application';
 import config from 'ember-get-config';
 
-export default Service.extend({
-  router: service(),
+export default class HeadDataService extends Service {
+  @service router;
 
-  config: computed(function() {
+  @alias('router.currentRouteName') routeName;
+
+  get config() {
     return config['ember-meta'];
-  }),
+  }
 
-  routeName: alias('router.currentRouteName'),
-
-  currentRouteMeta: computed('routeName', function() {
+  @computed('routeName')
+  get currentRouteMeta() {
     const currentRoute = getOwner(this).lookup(`route:${this.routeName}`);
 
     return currentRoute.metaInfo || currentRoute.currentModel;
-  }),
+  }
 
   /**
    * Used for og:title, twitter:title as the title to show in the unfurled links
    */
-  articleTitle: computed.reads('currentRouteMeta.articleTitle'),
+  @reads('currentRouteMeta.articleTitle') articleTitle;
   /**
    * Used for twitter 'written by' meta.
    */
-  author: computed.reads('currentRouteMeta.author'),
+  @reads('currentRouteMeta.author') author;
   /**
    * Used for <link rel="canonical">
    */
-  canonical: computed.reads('currentRouteMeta.canonical'),
+  @reads('currentRouteMeta.canonical') canonical;
   /**
    * Internal - used by keywords & tags
    */
-  categories: computed.reads('currentRouteMeta.categories'),
+  @reads('currentRouteMeta.categories') categories;
   /**
    * Internal - optionally used for description
    */
-  content: computed.reads('currentRouteMeta.content'),
+  @reads('currentRouteMeta.content') content;
   /**
    * Used for article:published_time
    */
-  date: computed.reads('currentRouteMeta.date'),
+  @reads('currentRouteMeta.date') date;
+
   /**
    * Used for <meta name="description">, og:description, twitter:description
    * This is the main content of your page, shown as the content in the unfurled links
    * If you pass a description, it will be used, otherwise it will truncate your content,
    * and finally it will use the description from the global config.
    */
-  description: computed('content', 'currentRouteMeta.description', 'routeName', 'config.description', function() {
+  @computed('content', 'currentRouteMeta.description', 'routeName', 'config.description')
+  get description() {
     const description = this.currentRouteMeta?.description;
     const content = this.content;
 
@@ -60,14 +63,18 @@ export default Service.extend({
     }
 
     return this.config.description;
-  }),
+  }
+
   /**
    * Used for og:image twitter:image:src, the image to display in your unfurled links
    */
-  imgSrc: computed('currentRouteMeta.imgSrc', 'routeName', 'config.imgSrc', function() {
+  @computed('currentRouteMeta.imgSrc', 'routeName', 'config.imgSrc')
+  get imgSrc() {
     return this.currentRouteMeta?.imgSrc ?? this.config.imgSrc;
-  }),
-  jsonld: computed('currentRouteMeta.jsonld', 'routeName', function() {
+  }
+
+  @computed('currentRouteMeta.jsonld', 'routeName')
+  get jsonld() {
     const jsonld = this.currentRouteMeta?.jsonld;
 
     if (jsonld) {
@@ -75,55 +82,67 @@ export default Service.extend({
     }
 
     return false;
-  }),
+  }
+
   /**
    * Used for twitter meta to display 'filed under'
    */
-  keywords: computed('categories', 'routeName', function() {
+  @computed('categories', 'routeName')
+  get keywords() {
     const categories = this.categories;
     return categories ? categories.join(', ') : null;
-  }),
+  }
+
   /**
    * Used for og:site_name
    */
-  siteName: computed('currentRouteMeta.siteName', 'routeName', 'config.siteName', function() {
+  @computed('currentRouteMeta.siteName', 'routeName', 'config.siteName')
+  get siteName() {
     return this.currentRouteMeta?.siteName ?? this.config.siteName;
-  }),
+  }
+
   /**
    * Internal - used for url
    */
-  slug: computed.reads('currentRouteMeta.slug'),
+  @reads('currentRouteMeta.slug') slug;
   /**
    * Used for article:tag
    */
-  tags: computed.reads('categories'),
+  @reads('categories') tags;
   /**
    * Used for <title>, og:title, twitter:title
    */
-  title: computed('currentRouteMeta.title', 'routeName', 'config.title', function() {
+  @computed('currentRouteMeta.title', 'routeName', 'config.title')
+  get title() {
     return this.currentRouteMeta?.title ?? this.config.title;
-  }),
+  }
+
   /**
    * Used for twitter:site and twitter:creator
    */
-  twitterUsername: computed('currentRouteMeta.twitterUsername', 'routeName', 'config.twitterUsername', function() {
+  @computed('currentRouteMeta.twitterUsername', 'routeName', 'config.twitterUsername')
+  get twitterUsername() {
     return this.currentRouteMeta?.twitterUsername ?? this.config.twitterUsername;
-  }),
+  }
+
   /**
    * Used for og:type, defaults to 'website'
    */
-  type: computed('currentRouteMeta.type', 'routeName', function() {
+  @computed('currentRouteMeta.type', 'routeName')
+  get type() {
     return this.currentRouteMeta?.type ?? 'website';
-  }),
+  }
+
   /**
    * Used for <link rel="canonical">, og:url, twitter:url
    */
-  url: computed('currentRouteMeta.url', 'routeName', 'slug', 'config.url', function() {
+  @computed('currentRouteMeta.url', 'routeName', 'slug', 'config.url')
+  get url() {
     let url = this.currentRouteMeta?.url ?? this.config.url;
     const slug = this.slug;
     if (slug) {
       url = `${url}${slug}/`;
     }
     return url;
-  })
-});
+  }
+}
