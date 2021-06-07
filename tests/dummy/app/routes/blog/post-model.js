@@ -1,4 +1,3 @@
-
 import Route from '@ember/routing/route';
 
 export default Route.extend({
@@ -11,7 +10,7 @@ export default Route.extend({
       date: '2018-04-09',
       slug: 'test-post-slug',
       title: 'Overridden Title',
-      type: 'article'
+      type: 'article',
     };
-  }
+  },
 });

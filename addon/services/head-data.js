@@ -51,7 +51,12 @@ export default class HeadDataService extends Service {
    * If you pass a description, it will be used, otherwise it will truncate your content,
    * and finally it will use the description from the global config.
    */
-  @computed('content', 'currentRouteMeta.description', 'routeName', 'config.description')
+  @computed(
+    'content',
+    'currentRouteMeta.description',
+    'routeName',
+    'config.description'
+  )
   get description() {
     const description = this.currentRouteMeta?.description;
     const content = this.content;
@@ -120,9 +125,15 @@ export default class HeadDataService extends Service {
   /**
    * Used for twitter:site and twitter:creator
    */
-  @computed('currentRouteMeta.twitterUsername', 'routeName', 'config.twitterUsername')
+  @computed(
+    'currentRouteMeta.twitterUsername',
+    'routeName',
+    'config.twitterUsername'
+  )
   get twitterUsername() {
-    return this.currentRouteMeta?.twitterUsername ?? this.config.twitterUsername;
+    return (
+      this.currentRouteMeta?.twitterUsername ?? this.config.twitterUsername
+    );
   }
 
   /**

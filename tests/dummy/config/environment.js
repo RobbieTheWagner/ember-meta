@@ -29,7 +29,7 @@ module.exports = function (environment) {
     siteName: 'Test Site Name',
     title: 'Blog - Test Site Name',
     twitterUsername: '@testtwitter',
-    url: 'https://myblog.io/'
+    url: 'https://myblog.io/',
   };
 
   if (environment === 'development') {
