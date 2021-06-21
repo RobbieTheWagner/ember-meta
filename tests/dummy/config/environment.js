@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'dummy',
     environment,
@@ -13,14 +13,14 @@ module.exports = function(environment) {
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
-        Date: false
-      }
+        Date: false,
+      },
     },
 
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
   };
 
   ENV['ember-meta'] = {
@@ -29,7 +29,7 @@ module.exports = function(environment) {
     siteName: 'Test Site Name',
     title: 'Blog - Test Site Name',
     twitterUsername: '@testtwitter',
-    url: 'https://myblog.io/'
+    url: 'https://myblog.io/',
   };
 
   if (environment === 'development') {
