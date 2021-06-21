@@ -2,7 +2,6 @@ import Service, { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
 import { alias, reads } from '@ember/object/computed';
 import { getOwner } from '@ember/application';
-import config from 'ember-get-config';
 
 export default class HeadDataService extends Service {
   @service router;
@@ -10,6 +9,7 @@ export default class HeadDataService extends Service {
   @alias('router.currentRouteName') routeName;
 
   get config() {
+    const config = getOwner(this).resolveRegistration('config:environment');
     return config['ember-meta'];
   }
 
