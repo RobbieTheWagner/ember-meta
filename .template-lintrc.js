@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  extends: 'octane',
+  extends: 'recommended',
   rules: {
     'no-forbidden-elements': false,
     // TODO: maybe enable this again?
