@@ -31,6 +31,13 @@ ember install ember-meta
 
 Usage
 ------------------------------------------------------------------------------
+ember-meta uses ember-cli-head under the hood, so to make sure your meta makes it into the `<head>` you will have to
+add this to `application.hbs`:
+
+```hbs
+<HeadLayout/>
+```
+
 This addon supports a config be set with the basic info for your blog, including the `title`,
 `description`, and `url`. The `url` should end in a trailing slash. These values will be used as defaults, and
 you can override them by returning different values in your model.
