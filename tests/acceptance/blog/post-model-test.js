@@ -8,13 +8,13 @@ module('Acceptance | blog/post-model', function (hooks) {
   test('visiting /blog/post-model and checking general meta', async function (assert) {
     await visit('/blog/post-model');
 
-    assert.equal(currentURL(), '/blog/post-model');
-    assert.equal(
+    assert.strictEqual(currentURL(), '/blog/post-model');
+    assert.strictEqual(
       document.head.querySelector('link[rel="canonical"]').href,
       'https://myblog.io/test-post-slug/',
       'canonical link is correct'
     );
-    assert.equal(
+    assert.strictEqual(
       document.head.querySelector('meta[name="referrer"]').content,
       'unsafe-url',
       'referrer is always unsafe-url for maximum links'
@@ -24,8 +24,8 @@ module('Acceptance | blog/post-model', function (hooks) {
   test('visiting /blog/post-model and checking article meta', async function (assert) {
     await visit('/blog/post-model');
 
-    assert.equal(currentURL(), '/blog/post-model');
-    assert.equal(
+    assert.strictEqual(currentURL(), '/blog/post-model');
+    assert.strictEqual(
       document.head.querySelector('meta[property="article:published_time"]')
         .content,
       '2018-04-09',
@@ -34,20 +34,20 @@ module('Acceptance | blog/post-model', function (hooks) {
 
     const tags = document.head.querySelectorAll('meta[property="article:tag"]');
 
-    assert.equal(tags[0].content, 'ember', 'first tag is correct');
-    assert.equal(tags[1].content, 'ember.js', 'second tag is correct');
+    assert.strictEqual(tags[0].content, 'ember', 'first tag is correct');
+    assert.strictEqual(tags[1].content, 'ember.js', 'second tag is correct');
   });
 
   test('visiting /blog/post-model and checking opengraph meta', async function (assert) {
     await visit('/blog/post-model');
 
-    assert.equal(currentURL(), '/blog/post-model');
-    assert.equal(
+    assert.strictEqual(currentURL(), '/blog/post-model');
+    assert.strictEqual(
       document.head.querySelector('meta[property="og:site_name"]').content,
       'Test Site Name',
       'og site_name is correct'
     );
-    assert.equal(
+    assert.strictEqual(
       document.head.querySelector('meta[property="og:title"]').content,
       'Overridden Title',
       'og title is correct'
@@ -57,8 +57,8 @@ module('Acceptance | blog/post-model', function (hooks) {
   test('visiting /blog/post-model and checking twitter meta', async function (assert) {
     await visit('/blog/post-model');
 
-    assert.equal(currentURL(), '/blog/post-model');
-    assert.equal(
+    assert.strictEqual(currentURL(), '/blog/post-model');
+    assert.strictEqual(
       document.head.querySelector('meta[name="twitter:title"]').content,
       'Overridden Title',
       'twitter title is correct'
