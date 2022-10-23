@@ -1,5 +1,4 @@
-ember-meta
-==============================================================================
+# ember-meta
 
 <a href="https://shipshape.io/"><img src="http://i.imgur.com/DWHQjA5.png" width="100" height="100"/></a>
 
@@ -14,23 +13,21 @@ ember-meta
 Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.
 
 
-Compatibility
-------------------------------------------------------------------------------
+## Compatibility
 
-* Ember.js v3.24 or above
-* Ember CLI v3.24 or above
-* Node.js v12 or above
+* Ember.js v3.28 or above
+* Ember CLI v3.28 or above
+* Node.js v14 or above
 
 
-Installation
-------------------------------------------------------------------------------
+## Installation
 
 ```
 ember install ember-meta
 ```
 
-Usage
-------------------------------------------------------------------------------
+## Usage
+
 ember-meta uses ember-cli-head under the hood, so to make sure your meta makes it into the `<head>` you will have to
 add this to `application.hbs`:
 
@@ -230,12 +227,11 @@ export default HeadDataService.extend({
 A default `head.hbs` is automatically available to your app, but we also provide a blueprint, if you would like to manage the
 content yourself. This allows you to either define your own or delete it altogether and use the one we ship with this addon.
 
-Contributing
-------------------------------------------------------------------------------
+## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
 
-License
-------------------------------------------------------------------------------
+
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
