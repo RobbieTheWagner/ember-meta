@@ -31,7 +31,7 @@
     "ember-cli-babel": "^7.26.11",
     "ember-cli-head": "^2.0.0",
     "ember-cli-htmlbars": "^6.2.0",
-    "ember-truth-helpers": "^3.0.0"
+    "ember-truth-helpers": "^4.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.5",
