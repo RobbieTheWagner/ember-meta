@@ -77,11 +77,13 @@
     "webpack": "^5.88.1"
   },
   "peerDependencies": {
-    "ember-source": "^4.0.0"
+    "ember-source": ">= 4.0.0"
   },
   "engines": {
-    "node": "16.* || >= 18"
+    "node": "16.* || >= 18",
+    "pnpm": "^8.15.3"
   },
+  "packageManager": "pnpm@8.15.3",
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
@@ -108,9 +110,5 @@
       "release": true,
       "tokenRef": "GITHUB_AUTH"
     }
-  },
-  "volta": {
-    "node": "12.22.1",
-    "yarn": "1.22.10"
   }
 }
