@@ -51,7 +51,7 @@ devDependencies:
     version: 9.0.1
   ember-auto-import:
     specifier: ^2.6.3
-    version: 2.8.0(webpack@5.94.0)
+    version: 2.8.1(webpack@5.94.0)
   ember-cli:
     specifier: ~5.1.0
     version: 5.1.0
@@ -5067,8 +5067,8 @@ packages:
   /electron-to-chromium@1.4.677:
     resolution: {integrity: sha512-erDa3CaDzwJOpyvfKhOiJjBVNnMM0qxHq47RheVVwsSQrgBA9ZSGV9kdaOfZDPXcHzhG7lBxhj6A7KvfLJBd6Q==}
 
-  /ember-auto-import@2.8.0(webpack@5.94.0):
-    resolution: {integrity: sha512-0GNLkVQOzDGYygybqKXJDOQRComIbkrptX1l7ptk6tapCKFgqYEZWkJH4t+EmefGWOtKfvvqos6HQ5GtsdH4pg==}
+  /ember-auto-import@2.8.1(webpack@5.94.0):
+    resolution: {integrity: sha512-R5RpJmhycU6YKryzsIL/wP42r0e2PPfLRsFECoGvb1st2eEnU1Q7XyLVC1txd/XvURfu7x3Z7hKtZtYUxy61oQ==}
     engines: {node: 12.* || 14.* || >= 16}
     dependencies:
       '@babel/core': 7.24.7
@@ -5738,7 +5738,7 @@ packages:
       broccoli-funnel: 3.0.8
       broccoli-merge-trees: 4.2.0
       chalk: 4.1.2
-      ember-auto-import: 2.8.0(webpack@5.94.0)
+      ember-auto-import: 2.8.1(webpack@5.94.0)
       ember-cli-babel: 8.2.0(@babel/core@7.24.7)
       ember-cli-get-component-path-option: 1.0.0
       ember-cli-is-package-missing: 1.0.0
