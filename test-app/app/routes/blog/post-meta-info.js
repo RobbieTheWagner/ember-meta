@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class BlogPostMetaInfo extends Route {
   afterModel() {
-    this._super(...arguments);
+    super.afterModel(...arguments);
 
     this.metaInfo = {
       content: '<h1>Overridden post content</h1> <p>This is a post body!</p>',
@@ -14,5 +14,5 @@ export default Route.extend({
       title: 'Overridden Title',
       type: 'article',
     };
-  },
-});
+  }
+}

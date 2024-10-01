@@ -12,12 +12,12 @@ module('Acceptance | blog/post-meta-info', function (hooks) {
     assert.strictEqual(
       document.head.querySelector('link[rel="canonical"]').href,
       'https://myblog.io/test-post-slug/',
-      'canonical link is correct'
+      'canonical link is correct',
     );
     assert.strictEqual(
       document.head.querySelector('meta[name="referrer"]').content,
       'unsafe-url',
-      'referrer is always unsafe-url for maximum links'
+      'referrer is always unsafe-url for maximum links',
     );
   });
 
@@ -29,7 +29,7 @@ module('Acceptance | blog/post-meta-info', function (hooks) {
       document.head.querySelector('meta[property="article:published_time"]')
         .content,
       '2018-04-09',
-      'article published date is correct'
+      'article published date is correct',
     );
 
     const tags = document.head.querySelectorAll('meta[property="article:tag"]');
@@ -45,12 +45,12 @@ module('Acceptance | blog/post-meta-info', function (hooks) {
     assert.strictEqual(
       document.head.querySelector('meta[property="og:site_name"]').content,
       'Test Site Name',
-      'og site_name is correct'
+      'og site_name is correct',
     );
     assert.strictEqual(
       document.head.querySelector('meta[property="og:title"]').content,
       'Overridden Title',
-      'og title is correct'
+      'og title is correct',
     );
   });
 
@@ -61,7 +61,7 @@ module('Acceptance | blog/post-meta-info', function (hooks) {
     assert.strictEqual(
       document.head.querySelector('meta[name="twitter:title"]').content,
       'Overridden Title',
-      'twitter title is correct'
+      'twitter title is correct',
     );
   });
 });

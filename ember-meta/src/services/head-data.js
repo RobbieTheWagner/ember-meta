@@ -1,21 +1,18 @@
 import Service, { inject as service } from '@ember/service';
-import { computed } from '@ember/object';
-import { alias, reads } from '@ember/object/computed';
 import { getOwner } from '@ember/application';
 
 export default class HeadDataService extends Service {
   @service router;
-
-  @alias('router.currentRouteName') routeName;
 
   get config() {
     const config = getOwner(this).resolveRegistration('config:environment');
     return config['ember-meta'];
   }
 
-  @computed('routeName')
   get currentRouteMeta() {
-    const currentRoute = getOwner(this).lookup(`route:${this.routeName}`);
+    const currentRoute = getOwner(this).lookup(
+      `route:${this.router.currentRouteName}`,
+    );
 
     return currentRoute.metaInfo || currentRoute.currentModel;
   }
@@ -23,27 +20,39 @@ export default class HeadDataService extends Service {
   /**
    * Used for og:title, twitter:title as the title to show in the unfurled links
    */
-  @reads('currentRouteMeta.articleTitle') articleTitle;
+  get articleTitle() {
+    return this.currentRouteMeta.articleTitle;
+  }
   /**
    * Used for twitter 'written by' meta.
    */
-  @reads('currentRouteMeta.author') author;
+  get author() {
+    return this.currentRouteMeta.author;
+  }
   /**
    * Used for <link rel="canonical">
    */
-  @reads('currentRouteMeta.canonical') canonical;
+  get canonical() {
+    return this.currentRouteMeta.canonical;
+  }
   /**
    * Internal - used by keywords & tags
    */
-  @reads('currentRouteMeta.categories') categories;
+  get categories() {
+    return this.currentRouteMeta.categories;
+  }
   /**
    * Internal - optionally used for description
    */
-  @reads('currentRouteMeta.content') content;
+  get content() {
+    return this.currentRouteMeta.content;
+  }
   /**
    * Used for article:published_time
    */
-  @reads('currentRouteMeta.date') date;
+  get date() {
+    return this.currentRouteMeta.date;
+  }
 
   /**
    * Used for <meta name="description">, og:description, twitter:description
@@ -51,20 +60,13 @@ export default class HeadDataService extends Service {
    * If you pass a description, it will be used, otherwise it will truncate your content,
    * and finally it will use the description from the global config.
    */
-  @computed(
-    'content',
-    'currentRouteMeta.description',
-    'routeName',
-    'config.description'
-  )
   get description() {
     const description = this.currentRouteMeta?.description;
-    const content = this.content;
 
     if (description) {
       return description;
-    } else if (content && content.substring) {
-      return `${content.substring(0, 260)}...`;
+    } else if (this.content?.substring) {
+      return `${this.content.substring(0, 260)}...`;
     }
 
     return this.config.description;
@@ -73,12 +75,10 @@ export default class HeadDataService extends Service {
   /**
    * Used for og:image twitter:image:src, the image to display in your unfurled links
    */
-  @computed('currentRouteMeta.imgSrc', 'routeName', 'config.imgSrc')
   get imgSrc() {
     return this.currentRouteMeta?.imgSrc ?? this.config.imgSrc;
   }
 
-  @computed('currentRouteMeta.jsonld', 'routeName')
   get jsonld() {
     const jsonld = this.currentRouteMeta?.jsonld;
 
@@ -92,7 +92,6 @@ export default class HeadDataService extends Service {
   /**
    * Used for twitter meta to display 'filed under'
    */
-  @computed('categories', 'routeName')
   get keywords() {
     const categories = this.categories;
     return categories ? categories.join(', ') : null;
@@ -101,7 +100,6 @@ export default class HeadDataService extends Service {
   /**
    * Used for og:site_name
    */
-  @computed('currentRouteMeta.siteName', 'routeName', 'config.siteName')
   get siteName() {
     return this.currentRouteMeta?.siteName ?? this.config.siteName;
   }
@@ -109,15 +107,18 @@ export default class HeadDataService extends Service {
   /**
    * Internal - used for url
    */
-  @reads('currentRouteMeta.slug') slug;
+  get slug() {
+    return this.currentRouteMeta.slug;
+  }
   /**
    * Used for article:tag
    */
-  @reads('categories') tags;
+  get tags() {
+    return this.categories;
+  }
   /**
    * Used for <title>, og:title, twitter:title
    */
-  @computed('currentRouteMeta.title', 'routeName', 'config.title')
   get title() {
     return this.currentRouteMeta?.title ?? this.config.title;
   }
@@ -125,11 +126,6 @@ export default class HeadDataService extends Service {
   /**
    * Used for twitter:site and twitter:creator
    */
-  @computed(
-    'currentRouteMeta.twitterUsername',
-    'routeName',
-    'config.twitterUsername'
-  )
   get twitterUsername() {
     return (
       this.currentRouteMeta?.twitterUsername ?? this.config.twitterUsername
@@ -139,7 +135,6 @@ export default class HeadDataService extends Service {
   /**
    * Used for og:type, defaults to 'website'
    */
-  @computed('currentRouteMeta.type', 'routeName')
   get type() {
     return this.currentRouteMeta?.type ?? 'website';
   }
@@ -147,12 +142,10 @@ export default class HeadDataService extends Service {
   /**
    * Used for <link rel="canonical">, og:url, twitter:url
    */
-  @computed('currentRouteMeta.url', 'routeName', 'slug', 'config.url')
   get url() {
     let url = this.currentRouteMeta?.url ?? this.config.url;
-    const slug = this.slug;
-    if (slug) {
-      url = `${url}${slug}/`;
+    if (this.slug) {
+      url = `${url}${this.slug}/`;
     }
     return url;
   }
