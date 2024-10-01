@@ -12,13 +12,11 @@
 
 Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.
 
-
 ## Compatibility
 
-* Ember.js v4.4 or above
-* Ember CLI v4.4 or above
-* Node.js v16 or above
-
+- Ember.js v4.4 or above
+- Ember CLI v4.4 or above
+- Node.js v16 or above
 
 ## Installation
 
@@ -32,7 +30,7 @@ ember-meta uses ember-cli-head under the hood, so to make sure your meta makes i
 add this to `application.hbs`:
 
 ```hbs
-<HeadLayout/>
+<HeadLayout />
 ```
 
 This addon supports a config be set with the basic info for your blog, including the `title`,
@@ -43,14 +41,15 @@ you can override them by returning different values in your model.
 
 ```js
 // config/environment.js
-ENV['ember-meta'] = {
-    description: 'Ramblings about Ember.js, JavaScript, life, liberty, and the pursuit of happiness.',
-    imgSrc: 'http://i.imgur.com/KVqNjgO.png',
-    siteName: 'Ship Shape',
-    title: 'Blog - Ship Shape',
-    twitterUsername: '@shipshapecode',
-    url: 'https://shipshape.io/blog/'
-  };
+ENV["ember-meta"] = {
+  description:
+    "Ramblings about Ember.js, JavaScript, life, liberty, and the pursuit of happiness.",
+  imgSrc: "http://i.imgur.com/KVqNjgO.png",
+  siteName: "Ship Shape",
+  title: "Blog - Ship Shape",
+  twitterUsername: "@shipshapecode",
+  url: "https://shipshape.io/blog/",
+};
 ```
 
 The `title` will be used for both the `<title>` tag of your page, and for `og:title` and `twitter:title`. Similarly, the
@@ -72,23 +71,24 @@ This ensures you do not have potential naming conflicts for your meta when using
 
 ```js
 // routes/blog/post.js
-import Route from '@ember/routing/route';
+import Route from "@ember/routing/route";
 
-export default Route.extend({
+export default class BlogPost extends Route {
   afterModel() {
-    this._super(...arguments);
-    
+    super.afterModel(...arguments);
+
     this.metaInfo = {
-      content: '<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>',
-      author: 'Robert Wagner',
-      authorId: 'rwwagner90',
-      categories: ['ember', 'ember.js', 'ember inspector'],
-      date: '2018-04-09',
-      slug: 'ember-inspector-the-journey-so-far',
-      title: 'Ember Inspector - The Journey so Far'  
+      content:
+        "<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>",
+      author: "Robert Wagner",
+      authorId: "rwwagner90",
+      categories: ["ember", "ember.js", "ember inspector"],
+      date: "2018-04-09",
+      slug: "ember-inspector-the-journey-so-far",
+      title: "Ember Inspector - The Journey so Far",
     };
   }
-});
+}
 ```
 
 ### Using with a Vanilla Javascript Model Hook
@@ -100,21 +100,22 @@ Here is an example of a simple blog post using a POJO as the model:
 
 ```js
 // routes/blog/post.js
-import Route from '@ember/routing/route';
+import Route from "@ember/routing/route";
 
-export default Route.extend({
+export default class BlogPost extends Route {
   model() {
     return {
-      content: '<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>',
-      author: 'Robert Wagner',
-      authorId: 'rwwagner90',
-      categories: ['ember', 'ember.js', 'ember inspector'],
-      date: '2018-04-09',
-      slug: 'ember-inspector-the-journey-so-far',
-      title: 'Ember Inspector - The Journey so Far'  
+      content:
+        "<h1>Ember Inspector - The Journey so Far</h1> <p>This is a post body!</p>",
+      author: "Robert Wagner",
+      authorId: "rwwagner90",
+      categories: ["ember", "ember.js", "ember inspector"],
+      date: "2018-04-09",
+      slug: "ember-inspector-the-journey-so-far",
+      title: "Ember Inspector - The Journey so Far",
     };
   }
-});
+}
 ```
 
 ### Using with a Ember Data
@@ -123,27 +124,27 @@ If you are using Ember data it should work as expected. Here is an example of th
 
 ```js
 // models/blog.js
-import DS from 'ember-data';
+import Model, { attr } from "@ember-data/model";
 
-export default DS.Model.extend({
-  content: DS.attr(),
-  author: DS.attr(),
-  categories: DS.attr(),
-  date: DS.attr(),
-  slug: DS.attr(),
-  title: DS.attr()
-});
+export default class Blog extends Model {
+  @attr content;
+  @attr author;
+  @attr categories;
+  @attr date;
+  @attr slug;
+  @attr title;
+}
 ```
 
 ```js
 // routes/blog/post.js
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default BlogPost extends Route {
   model() {
     return this.store.findRecord('blog', 1);
   }
-});
+}
 ```
 
 ### Using with ember-cli-markdown-resolver
@@ -161,7 +162,7 @@ categories:
   - ember
   - ember.js
   - ember inspector
-date: '2018-04-09'
+date: "2018-04-09"
 slug: ember-inspector-the-journey-so-far
 title: Ember Inspector - The Journey so Far
 ---
@@ -169,17 +170,17 @@ title: Ember Inspector - The Journey so Far
 
 ```js
 // routes/blog/post.js
-import Route from '@ember/routing/route';
-import { inject as service } from '@ember/service';
+import Route from "@ember/routing/route";
+import { inject as service } from "@ember/service";
 
-export default Route.extend({
-  markdownResolver: service(),
+export default class BlogPost extends Route {
+  @service markdownResolver;
 
   model({ path }) {
-    const withoutSlash = !path.endsWith('/') ? path : path.slice(0, -1);
-    return this.markdownResolver.file('blog', withoutSlash);
+    const withoutSlash = !path.endsWith("/") ? path : path.slice(0, -1);
+    return this.markdownResolver.file("blog", withoutSlash);
   }
-});
+}
 ```
 
 In this case we need to override the `head-data` service because ember-cli-markdown-resolver puts all of the
@@ -187,21 +188,27 @@ front-matter data under an `attributes` key.
 
 ```js
 // services/head-data.js
-import HeadData from 'ember-meta/services/head-data';
-import { computed } from '@ember/object';
-import { getOwner } from '@ember/application';
+import HeadDataService from "ember-meta/services/head-data";
+import { computed } from "@ember/object";
+import { getOwner } from "@ember/application";
 
-export default HeadData.extend({
-  currentRouteModel: computed('routeName', function() {
-    return getOwner(this).lookup(`route:${this.get('routeName')}`).get('currentModel.attributes');
-  }),
-  content: computed('routeName', function() {
+export default class HeadData extends HeadDataService {
+  @computed("routeName")
+  get currentRouteModel() {
+    return getOwner(this)
+      .lookup(`route:${this.get("routeName")}`)
+      .get("currentModel.attributes");
+  }
+
+  @computed("routeName")
+  get content() {
     // content is not on attributes when returned from ember-cli-markdown-resolver
-    return getOwner(this).lookup(`route:${this.get('routeName')}`).get('currentModel.content');
-  }),
-});
+    return getOwner(this)
+      .lookup(`route:${this.get("routeName")}`)
+      .get("currentModel.content");
+  }
+}
 ```
-
 
 ## Advanced Local Config
 
@@ -212,14 +219,15 @@ extend the one we provide to override the computeds for various meta to do whate
 
 ```js
 // services/head-data.js
-import HeadDataService from 'ember-meta/services/head-data';
-import { computed } from '@ember/object';
+import HeadDataService from "ember-meta/services/head-data";
+import { computed } from "@ember/object";
 
-export default HeadDataService.extend({
-  description: computed('foo', function() {
-    return this.get('foo.description');
-  })
-});
+export default class HeadData extends HeadDataService {
+  @computed("foo")
+  get description() {
+    return this.foo.description;
+  }
+}
 ```
 
 ### Defining Your Own head.hbs
@@ -230,7 +238,6 @@ content yourself. This allows you to either define your own or delete it altoget
 ## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
-
 
 ## License
 
