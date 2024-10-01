@@ -21,37 +21,37 @@ export default class HeadDataService extends Service {
    * Used for og:title, twitter:title as the title to show in the unfurled links
    */
   get articleTitle() {
-    return this.currentRouteMeta.articleTitle;
+    return this.currentRouteMeta?.articleTitle;
   }
   /**
    * Used for twitter 'written by' meta.
    */
   get author() {
-    return this.currentRouteMeta.author;
+    return this.currentRouteMeta?.author;
   }
   /**
    * Used for <link rel="canonical">
    */
   get canonical() {
-    return this.currentRouteMeta.canonical;
+    return this.currentRouteMeta?.canonical;
   }
   /**
    * Internal - used by keywords & tags
    */
   get categories() {
-    return this.currentRouteMeta.categories;
+    return this.currentRouteMeta?.categories;
   }
   /**
    * Internal - optionally used for description
    */
   get content() {
-    return this.currentRouteMeta.content;
+    return this.currentRouteMeta?.content;
   }
   /**
    * Used for article:published_time
    */
   get date() {
-    return this.currentRouteMeta.date;
+    return this.currentRouteMeta?.date;
   }
 
   /**
@@ -69,14 +69,14 @@ export default class HeadDataService extends Service {
       return `${this.content.substring(0, 260)}...`;
     }
 
-    return this.config.description;
+    return this.config?.description;
   }
 
   /**
    * Used for og:image twitter:image:src, the image to display in your unfurled links
    */
   get imgSrc() {
-    return this.currentRouteMeta?.imgSrc ?? this.config.imgSrc;
+    return this.currentRouteMeta?.imgSrc ?? this.config?.imgSrc;
   }
 
   get jsonld() {
@@ -101,14 +101,14 @@ export default class HeadDataService extends Service {
    * Used for og:site_name
    */
   get siteName() {
-    return this.currentRouteMeta?.siteName ?? this.config.siteName;
+    return this.currentRouteMeta?.siteName ?? this.config?.siteName;
   }
 
   /**
    * Internal - used for url
    */
   get slug() {
-    return this.currentRouteMeta.slug;
+    return this.currentRouteMeta?.slug;
   }
   /**
    * Used for article:tag
@@ -120,7 +120,7 @@ export default class HeadDataService extends Service {
    * Used for <title>, og:title, twitter:title
    */
   get title() {
-    return this.currentRouteMeta?.title ?? this.config.title;
+    return this.currentRouteMeta?.title ?? this.config?.title;
   }
 
   /**
@@ -128,7 +128,7 @@ export default class HeadDataService extends Service {
    */
   get twitterUsername() {
     return (
-      this.currentRouteMeta?.twitterUsername ?? this.config.twitterUsername
+      this.currentRouteMeta?.twitterUsername ?? this.config?.twitterUsername
     );
   }
 
@@ -143,7 +143,7 @@ export default class HeadDataService extends Service {
    * Used for <link rel="canonical">, og:url, twitter:url
    */
   get url() {
-    let url = this.currentRouteMeta?.url ?? this.config.url;
+    let url = this.currentRouteMeta?.url ?? this.config?.url;
     if (this.slug) {
       url = `${url}${this.slug}/`;
     }
