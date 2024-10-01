@@ -109,6 +109,7 @@
 
 {{! Begin JSON-LD }}
 {{#if this.model.jsonld}}
+  {{!template-lint-disable no-forbidden-elements}}
   <script type="application/ld+json">
     {{this.model.jsonld}}
   </script>
