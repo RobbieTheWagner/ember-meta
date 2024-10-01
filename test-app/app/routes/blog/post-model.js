@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default Route.extend({
+export default class BlogPostModel extends Route {
   model() {
     return {
       content: '<h1>Overridden post content</h1> <p>This is a post body!</p>',
@@ -12,5 +12,5 @@ export default Route.extend({
       title: 'Overridden Title',
       type: 'article',
     };
-  },
-});
+  }
+}
