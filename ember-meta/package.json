@@ -1,0 +1,102 @@
+{
+  "name": "ember-meta",
+  "version": "2.0.0",
+  "description": "Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.",
+  "keywords": [
+    "ember-addon"
+  ],
+  "repository": "https://github.com/shipshapecode/ember-meta",
+  "license": "MIT",
+  "author": "",
+  "exports": {
+    ".": {
+      "types": "./declarations/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./declarations/*.d.ts",
+      "default": "./dist/*.js"
+    },
+    "./addon-main.js": "./addon-main.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "declarations/*"
+      ]
+    }
+  },
+  "files": [
+    "addon-main.cjs",
+    "declarations",
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup --config",
+    "format": "prettier . --cache --write",
+    "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
+    "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm run format",
+    "lint:format": "prettier . --cache --check",
+    "lint:hbs": "ember-template-lint . --no-error-on-unmatched-pattern",
+    "lint:hbs:fix": "ember-template-lint . --fix --no-error-on-unmatched-pattern",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "lint:types": "glint",
+    "prepack": "rollup --config",
+    "start": "rollup --config --watch",
+    "test": "echo 'A v2 addon does not have tests, run tests in test-app'"
+  },
+  "dependencies": {
+    "@embroider/addon-shim": "^1.10.0",
+    "decorator-transforms": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/eslint-parser": "^7.27.0",
+    "@babel/plugin-transform-typescript": "^7.27.0",
+    "@babel/runtime": "^7.27.0",
+    "@embroider/addon-dev": "^7.1.4",
+    "@eslint/js": "^9.24.0",
+    "@glint/core": "^1.5.2",
+    "@glint/environment-ember-loose": "^1.5.2",
+    "@glint/environment-ember-template-imports": "^1.5.2",
+    "@glint/template": "^1.5.2",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@tsconfig/ember": "^3.0.10",
+    "babel-plugin-ember-template-compilation": "^2.4.1",
+    "concurrently": "^9.1.2",
+    "ember-cli-head": "^2.0.0",
+    "ember-source": "^5.12.0",
+    "ember-template-lint": "^6.1.0",
+    "ember-truth-helpers": "^4.0.3",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-ember": "^12.5.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^17.17.0",
+    "globals": "^15.15.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-ember-template-tag": "^2.0.5",
+    "rollup": "^4.39.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "~5.6.3",
+    "typescript-eslint": "^8.29.1",
+    "webpack": "^5.99.5"
+  },
+  "peerDependencies": {
+    "ember-cli-head": "^2.0.0",
+    "ember-source": ">= 4.12.0",
+    "ember-truth-helpers": ">= 3.0.0"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "ember-addon": {
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.cjs",
+    "app-js": {
+      "./services/head-data.js": "./dist/_app_/services/head-data.js"
+    }
+  }
+}

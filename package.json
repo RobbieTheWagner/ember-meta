@@ -1,114 +1,24 @@
 {
-  "name": "ember-meta",
-  "version": "2.0.0",
-  "description": "Setup meta for your Prember/Ember blog to support opengraph, microdata, Facebook, Twitter, Slack etc.",
-  "keywords": [
-    "ember-addon"
-  ],
-  "repository": "https://github.com/shipshapecode/ember-meta",
+  "private": true,
+  "repository": "",
   "license": "MIT",
   "author": "",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
   "scripts": {
-    "build": "ember build --environment=production",
-    "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
-    "lint:css": "stylelint \"**/*.css\"",
-    "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
-    "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\"",
-    "lint:hbs": "ember-template-lint .",
-    "lint:hbs:fix": "ember-template-lint . --fix",
-    "lint:js": "eslint . --cache",
-    "lint:js:fix": "eslint . --fix",
-    "start": "ember serve",
-    "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
-    "test:ember": "ember test",
-    "test:ember-compatibility": "ember try:each"
+    "build": "pnpm --filter ember-meta build",
+    "lint": "pnpm --filter '*' lint",
+    "lint:fix": "pnpm --filter '*' lint:fix",
+    "prepare": "pnpm build",
+    "start": "concurrently 'pnpm:start:*' --restart-after 5000 --prefixColors auto",
+    "start:addon": "pnpm --filter ember-meta start --no-watch.clearScreen",
+    "start:test-app": "pnpm --filter test-app start",
+    "test": "pnpm --filter '*' test",
+    "test:ember": "pnpm --filter '*' test:ember"
   },
-  "dependencies": {
-    "ember-cli-babel": "^8.2.0",
-    "ember-cli-head": "^2.0.0",
-    "ember-cli-htmlbars": "^6.2.0",
-    "ember-truth-helpers": "^3.0.0"
-  },
+  "packageManager": "pnpm@10.7.1",
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.5",
-    "@babel/plugin-proposal-decorators": "^7.22.5",
-    "@ember/optional-features": "^2.0.0",
-    "@ember/string": "^4.0.0",
-    "@ember/test-helpers": "^5.0.0",
-    "@embroider/test-setup": "^4.0.0",
-    "@glimmer/component": "^1.1.2",
-    "@glimmer/tracking": "^1.1.2",
-    "broccoli-asset-rev": "^3.0.0",
-    "concurrently": "^9.0.0",
-    "ember-auto-import": "^2.6.3",
-    "ember-cli": "~5.1.0",
-    "ember-cli-clean-css": "^3.0.0",
-    "ember-cli-dependency-checker": "^3.3.2",
-    "ember-cli-inject-live-reload": "^2.1.0",
-    "ember-cli-sri": "^2.1.1",
-    "ember-cli-terser": "^4.0.2",
-    "ember-load-initializers": "^3.0.1",
-    "ember-page-title": "^9.0.1",
-    "ember-qunit": "^8.0.1",
-    "ember-resolver": "^13.0.0",
-    "ember-source": "~6.3.0",
-    "ember-source-channel-url": "^3.0.0",
-    "ember-template-lint": "^7.0.0",
-    "ember-try": "^4.0.0",
-    "eslint": "^8.43.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-ember": "^12.1.0",
-    "eslint-plugin-n": "^17.0.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-qunit": "^8.0.0",
-    "loader.js": "^4.7.0",
-    "prettier": "^2.8.8",
-    "qunit": "^2.19.4",
-    "qunit-dom": "^3.0.0",
-    "release-it": "^15.5.0",
-    "release-it-lerna-changelog": "^5.0.0",
-    "stylelint": "^15.9.0",
-    "stylelint-config-standard": "^34.0.0",
-    "stylelint-prettier": "^3.0.0",
-    "webpack": "^5.88.1"
-  },
-  "peerDependencies": {
-    "ember-source": ">= 4.0.0"
-  },
-  "engines": {
-    "node": "16.* || >= 18",
-    "pnpm": "^9.11.0"
-  },
-  "packageManager": "pnpm@9.11.0",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
-  "ember": {
-    "edition": "octane"
-  },
-  "ember-addon": {
-    "configPath": "tests/dummy/config",
-    "after": [
-      "ember-cli-head"
-    ]
-  },
-  "release-it": {
-    "plugins": {
-      "release-it-lerna-changelog": {
-        "infile": "CHANGELOG.md",
-        "launchEditor": false
-      }
-    },
-    "git": {
-      "tagName": "v${version}"
-    },
-    "github": {
-      "release": true,
-      "tokenRef": "GITHUB_AUTH"
-    }
+    "@glint/core": "^1.5.2",
+    "concurrently": "^9.1.2",
+    "prettier": "^3.5.3",
+    "prettier-plugin-ember-template-tag": "^2.0.5"
   }
 }
