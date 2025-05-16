@@ -77,7 +77,7 @@ importers:
         version: 3.0.1(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(rsvp@4.8.5))
       ember-page-title:
         specifier: ^9.0.1
-        version: 9.0.1(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(rsvp@4.8.5))
+        version: 9.0.2
       ember-qunit:
         specifier: ^8.0.1
         version: 8.1.1(@ember/test-helpers@5.2.2(@babel/core@7.26.10))(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(rsvp@4.8.5))(qunit@2.24.1)
@@ -962,10 +962,6 @@ packages:
     resolution: {integrity: sha512-JGOQNRj3UR0NdWEg8MsM2eqPLncEwSB1IX+rwntIj22TEKj8biqx7GDgSbeH+ZedijmCh354Hf2c5rthrdzUAw==}
     engines: {node: 12.* || 14.* || >= 16}
 
-  '@embroider/addon-shim@1.9.0':
-    resolution: {integrity: sha512-fMzayl/licUL8VRAy4qXROKcYvHwUbV8aTh4m97L5/MRuVpxbcAy92DGGTqx5OBKCSQN3gMg+sUKeE6AviefpQ==}
-    engines: {node: 12.* || 14.* || >= 16}
-
   '@embroider/macros@1.16.5':
     resolution: {integrity: sha512-Oz8bUZvZzOV1Gk3qSgIzZJJzs6acclSTcEFyB+KdKbKqjTC3uebn53aU2gAlLU7/YdTRZrg2gNbQuwAp+tGkGg==}
     engines: {node: 12.* || 14.* || >= 16}
@@ -986,10 +982,6 @@ packages:
 
   '@embroider/shared-internals@2.6.2':
     resolution: {integrity: sha512-jL3Bjn8C73AUBlTex+VixP7YmqvPNN/BZFB85odTstzLFOuR8y2mmGiuWbq17qNuFyoxc6xtndMnAeqwCXBNkA==}
-    engines: {node: 12.* || 14.* || >= 16}
-
-  '@embroider/shared-internals@2.9.0':
-    resolution: {integrity: sha512-8untWEvGy6av/oYibqZWMz/yB+LHsKxEOoUZiLvcpFwWj2Sipc0DcXeTJQZQZ++otNkLCWyDrDhOLrOkgjOPSg==}
     engines: {node: 12.* || 14.* || >= 16}
 
   '@embroider/shared-internals@3.0.0':
@@ -1757,10 +1749,6 @@ packages:
 
   babel-import-util@2.0.1:
     resolution: {integrity: sha512-N1ZfNprtf/37x0R05J0QCW/9pCAcuI+bjZIK9tlu0JEkwEST7ssdD++gxHRbD58AiG5QE5OuNYhRoEFsc1wESw==}
-    engines: {node: '>= 12.*'}
-
-  babel-import-util@2.1.1:
-    resolution: {integrity: sha512-3qBQWRjzP9NreSH/YrOEU1Lj5F60+pWSLP0kIdCWxjFHH7pX2YPHIxQ67el4gnMNfYoDxSDGcT0zpVlZ+gVtQA==}
     engines: {node: '>= 12.*'}
 
   babel-import-util@3.0.1:
@@ -3017,11 +3005,9 @@ packages:
     peerDependencies:
       ember-source: '>= 5'
 
-  ember-page-title@9.0.1:
-    resolution: {integrity: sha512-qo3NHJRrCZpYyGr+KkDAQDZ9IFJOFLW9qEKYer2tetSpaL9B2PQmh4KY0XdZY25jxFg8GZ1+DChDSImIbh5yzA==}
+  ember-page-title@9.0.2:
+    resolution: {integrity: sha512-ACklH6hemNB6tDAiwGo4e0tFIqVrAkTNqRmlLtLABlh+GynH7xkWm9q4fyc4Ysg9R1jP8OrsKcxWRittshRatA==}
     engines: {node: 16.* || >= 18}
-    peerDependencies:
-      ember-source: '>= 4.2.0'
 
   ember-qunit@8.1.1:
     resolution: {integrity: sha512-nT+6s74j3BKNn+QQY/hINC3Xw3kn0NF0cU9zlgVQmCBWoyis1J24xWrY2LFOMThPmF6lHqcrUb5JwvBD4BXEXg==}
@@ -8763,15 +8749,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@embroider/addon-shim@1.9.0':
-    dependencies:
-      '@embroider/shared-internals': 2.9.0
-      broccoli-funnel: 3.0.8
-      common-ancestor-path: 1.0.1
-      semver: 7.7.1
-    transitivePeerDependencies:
-      - supports-color
-
   '@embroider/macros@1.16.5':
     dependencies:
       '@embroider/shared-internals': 2.6.2
@@ -8809,23 +8786,6 @@ snapshots:
       minimatch: 3.1.2
       resolve-package-path: 4.0.3
       semver: 7.6.3
-      typescript-memoize: 1.1.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@embroider/shared-internals@2.9.0':
-    dependencies:
-      babel-import-util: 2.1.1
-      debug: 4.4.0
-      ember-rfc176-data: 0.3.18
-      fs-extra: 9.1.0
-      is-subdir: 1.2.0
-      js-string-escape: 1.0.1
-      lodash: 4.17.21
-      minimatch: 3.1.2
-      pkg-entry-points: 1.1.1
-      resolve-package-path: 4.0.3
-      semver: 7.7.1
       typescript-memoize: 1.1.1
     transitivePeerDependencies:
       - supports-color
@@ -9761,8 +9721,6 @@ snapshots:
       possible-typed-array-names: 1.0.0
 
   babel-import-util@2.0.1: {}
-
-  babel-import-util@2.1.1: {}
 
   babel-import-util@3.0.1: {}
 
@@ -11510,11 +11468,10 @@ snapshots:
     dependencies:
       ember-source: 6.4.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(rsvp@4.8.5)
 
-  ember-page-title@9.0.1(ember-source@6.4.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(rsvp@4.8.5)):
+  ember-page-title@9.0.2:
     dependencies:
-      '@embroider/addon-shim': 1.9.0
+      '@embroider/addon-shim': 1.10.0
       '@simple-dom/document': 1.4.0
-      ember-source: 6.4.0(@glimmer/component@1.1.2(@babel/core@7.26.10))(rsvp@4.8.5)
     transitivePeerDependencies:
       - supports-color
 
