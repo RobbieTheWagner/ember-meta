@@ -101,7 +101,7 @@ importers:
         version: 8.57.1
       eslint-config-prettier:
         specifier: ^10.0.1
-        version: 10.1.5(eslint@8.57.1)
+        version: 10.1.8(eslint@8.57.1)
       eslint-plugin-ember:
         specifier: ^12.1.0
         version: 12.6.0(@babel/core@7.28.0)(eslint@8.57.1)
@@ -110,7 +110,7 @@ importers:
         version: 17.21.0(eslint@8.57.1)(typescript@5.7.3)
       eslint-plugin-prettier:
         specifier: ^4.2.1
-        version: 4.2.5(eslint-config-prettier@10.1.5(eslint@8.57.1))(eslint@8.57.1)(prettier@2.8.8)
+        version: 4.2.5(eslint-config-prettier@10.1.8(eslint@8.57.1))(eslint@8.57.1)(prettier@2.8.8)
       eslint-plugin-qunit:
         specifier: ^8.0.0
         version: 8.2.4(eslint@8.57.1)
@@ -3587,8 +3587,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-prettier@10.1.5:
-    resolution: {integrity: sha512-zc1UmCpNltmVY34vuLRV61r1K27sWuX39E+uyUnY8xS2Bex88VV9cugG+UZbRSRGtGyFboj+D8JODyme1plMpw==}
+  eslint-config-prettier@10.1.8:
+    resolution: {integrity: sha512-82GZUjRS0p/jganf6q1rEO25VSoHH0hKPCTrgillPjdI/3bgBhAE1QzHrHTizjpRvy6pGAvKjDJtk2pF9NDq8w==}
     hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
@@ -12652,7 +12652,7 @@ snapshots:
       eslint: 8.57.1
       semver: 7.7.2
 
-  eslint-config-prettier@10.1.5(eslint@8.57.1):
+  eslint-config-prettier@10.1.8(eslint@8.57.1):
     dependencies:
       eslint: 8.57.1
 
@@ -12694,13 +12694,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  eslint-plugin-prettier@4.2.5(eslint-config-prettier@10.1.5(eslint@8.57.1))(eslint@8.57.1)(prettier@2.8.8):
+  eslint-plugin-prettier@4.2.5(eslint-config-prettier@10.1.8(eslint@8.57.1))(eslint@8.57.1)(prettier@2.8.8):
     dependencies:
       eslint: 8.57.1
       prettier: 2.8.8
       prettier-linter-helpers: 1.0.0
     optionalDependencies:
-      eslint-config-prettier: 10.1.5(eslint@8.57.1)
+      eslint-config-prettier: 10.1.8(eslint@8.57.1)
 
   eslint-plugin-qunit@8.2.4(eslint@8.57.1):
     dependencies:
