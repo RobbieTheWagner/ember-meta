@@ -104,7 +104,7 @@ importers:
         version: 10.1.8(eslint@8.57.1)
       eslint-plugin-ember:
         specifier: ^12.1.0
-        version: 12.7.3(@babel/core@7.28.3)(eslint@8.57.1)(typescript@5.7.3)
+        version: 12.7.4(@babel/core@7.28.3)(eslint@8.57.1)(typescript@5.7.3)
       eslint-plugin-n:
         specifier: ^17.0.0
         version: 17.21.3(eslint@8.57.1)(typescript@5.7.3)
@@ -1834,8 +1834,8 @@ packages:
   '@types/unist@2.0.10':
     resolution: {integrity: sha512-IfYcSBWE3hLpBg8+X2SEa8LVkJdJEkT2Ese2aaLs3ptGdVtABxndrMaxuFlQ1qdFf9Q5rDvDpxI3WwgvKFAsQA==}
 
-  '@typescript-eslint/tsconfig-utils@8.40.0':
-    resolution: {integrity: sha512-jtMytmUaG9d/9kqSl/W3E3xaWESo4hFDxAIHGVW/WKKtQhesnRIJSAJO6XckluuJ6KDB5woD1EiqknriCtAmcw==}
+  '@typescript-eslint/tsconfig-utils@8.43.0':
+    resolution: {integrity: sha512-ALC2prjZcj2YqqL5X/bwWQmHA2em6/94GcbB/KKu5SX3EBDOsqztmmX1kMkvAJHzxk7TazKzJfFiEIagNV3qEA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       typescript: '>=4.8.4 <6.0.0'
@@ -3625,8 +3625,8 @@ packages:
     peerDependencies:
       eslint: '>=7.0.0'
 
-  eslint-plugin-ember@12.7.3:
-    resolution: {integrity: sha512-yZeq0g6XPFXPdz9eTmJ0LUj8xPLDTSYG9Ne2wT1z1aaDWtnREN1vyxGkcQ6veeH4hYIZxbm37OFth2aWFNX5lA==}
+  eslint-plugin-ember@12.7.4:
+    resolution: {integrity: sha512-0q6C9VEnHe9hbgs6TgFWHVyEZRrPwOdkqkiLFh7HkxQH0Y/RhCLCLiU695sfTacIk8ofzLcQSp9Fhd1WIZY9eA==}
     engines: {node: 18.* || 20.* || >= 21}
     peerDependencies:
       '@typescript-eslint/parser': '*'
@@ -10289,7 +10289,7 @@ snapshots:
 
   '@types/unist@2.0.10': {}
 
-  '@typescript-eslint/tsconfig-utils@8.40.0(typescript@5.7.3)':
+  '@typescript-eslint/tsconfig-utils@8.43.0(typescript@5.7.3)':
     dependencies:
       typescript: 5.7.3
 
@@ -12392,7 +12392,7 @@ snapshots:
       '@babel/core': 7.28.3
       '@babel/eslint-parser': 7.28.4(@babel/core@7.28.3)(eslint@8.57.1)
       '@glimmer/syntax': 0.95.0
-      '@typescript-eslint/tsconfig-utils': 8.40.0(typescript@5.7.3)
+      '@typescript-eslint/tsconfig-utils': 8.43.0(typescript@5.7.3)
       content-tag: 2.0.3
       eslint-scope: 7.2.2
       html-tags: 3.3.1
@@ -12725,7 +12725,7 @@ snapshots:
     dependencies:
       eslint: 8.57.1
 
-  eslint-plugin-ember@12.7.3(@babel/core@7.28.3)(eslint@8.57.1)(typescript@5.7.3):
+  eslint-plugin-ember@12.7.4(@babel/core@7.28.3)(eslint@8.57.1)(typescript@5.7.3):
     dependencies:
       '@ember-data/rfc395-data': 0.0.4
       css-tree: 3.1.0
